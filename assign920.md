@@ -1,6 +1,8 @@
 1. dart语言特性中的循环语句定义和操作方法
 2. dart字符串的定义和操作方法
+3. 
 ***********
+
 T2 关于字符串的定义及操作方法 官网原文如下: Strings
 
 A Dart string is a sequence of UTF-16 code units. You can use either single or double quotes to create a string:
@@ -54,10 +56,43 @@ Dart’s treatment of booleans is designed to avoid the strange behaviors that c
 // Check for null. var unicorn; assert(unicorn == null);
 
 // Check for NaN. var iMeantToDoThis = 0 / 0; assert(iMeantToDoThis.isNaN);
+
 *******************
+
 3. dart函数定义和使用方法
 4. dart中数组定义和使用方法
 5.dart中列表定义和使用方法
+
+***************************
+
+官网原文如下：
+
+Lists
+
+Perhaps the most common collection in nearly every programming language is the array, or ordered group of objects. In Dart, arrays are List objects, so we usually just call them lists.
+
+Dart list literals look like JavaScript array literals. Here’s a simple Dart list:
+
+var list = [1, 2, 3];
+
+Lists use zero-based indexing, where 0 is the index of the first element and list.length - 1 is the index of the last element. You can get a list’s length and refer to list elements just as you would in JavaScript:
+
+var list = [1, 2, 3];
+assert(list.length == 3);
+assert(list[1] == 2);
+
+list[1] = 1;
+assert(list[1] == 1);
+
+To create a list that’s a compile-time constant, add const before the list literal:
+
+var constantList = const [1, 2, 3];
+// constantList[1] = 1; // Uncommenting this causes an error.
+
+The List type has many handy methods for manipulating lists. For more information about lists, see Generics and Collections.
+（总体和其他语言列表的定义和操作方法没有太大区别 ）
+
+*****************************************
 6.dart中 Map定义和使用方法
 7. querySelector（）函数的详细API解释
 8. 详细解释dart如何操作html的文档
