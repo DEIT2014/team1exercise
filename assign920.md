@@ -1,9 +1,6 @@
-1. dart语言特性中的循环语句定义和操作方法
-2. dart字符串的定义和操作方法
-3. 
-***********
-
-T2 关于字符串的定义及操作方法 官网原文如下: Strings
+#dart语言特性中的循环语句定义和操作方法
+#dart字符串的定义和操作方法
+官网原文如下: Strings
 
 A Dart string is a sequence of UTF-16 code units. You can use either single or double quotes to create a string:
 
@@ -59,9 +56,20 @@ Dart’s treatment of booleans is designed to avoid the strange behaviors that c
 
 *******************
 
-3. dart函数定义和使用方法
-4. dart中数组定义和使用方法
-5.dart中列表定义和使用方法
+# dart函数定义和使用方法
+
+https://www.dartlang.org/guides/language/language-tour#functions
+
+//定义一个函数
+函数名a（参数1类型  参数1；参数2类型 参数2；...）
+{    执行行代码；}
+
+//函数调用：
+{//事先说明 参数1类型 参数1；参数2类型 参数2；...
+函数名a（参数1；参数2；...）;}
+
+# dart中数组定义和使用方法
+#dart中列表定义和使用方法
 
 ***************************
 
@@ -93,12 +101,37 @@ The List type has many handy methods for manipulating lists. For more informatio
 （总体和其他语言列表的定义和操作方法没有太大区别 ）
 
 *****************************************
-6.dart中 Map定义和使用方法
-7. querySelector（）函数的详细API解释
-8. 详细解释dart如何操作html的文档
-9. dart web app 应用程序组织结构的解释部分
-10. dart可用的各种工具的解释部分GYH
-11. 指引你到其他社区社区寻求dart相关问题帮助的解释部分
-12. 从web storm软件菜单找出webstrom 中dart开发的帮助文档
+#dart中 Map定义和使用方法
 
- 
+https://www.dartlang.org/guides/language/language-tour#built-in-types
+
+地图是包含指针和值的一个对象。指针和值可以是任意类型的对象。在一个程序中，每个指针定义名不可重复，但指针所指向的值可以相同。
+//map定义方法1：
+var 地图名a={
+指针1：值1，
+指针2：值2,
+指针3: 值3
+...........}
+//map定义方法2：
+var 地图名b=new Map();
+地图名b[指针1]=值1;
+地图名b[指针2]=值2;
+地图名b[指针3]=值3;
+ .......}
+//添加
+var 地图名a={指针1：值1}；
+地图名[要添加的指针名4]=值；
+*******************************************
+#querySelector（）函数的详细API解释
+
+#详细解释dart如何操作html的文档
+
+#dart web app 应用程序组织结构的解释部分
+https://webdev.dartlang.org/codelabs/ng2/1-skeleton#--what-did-you-get
+***********************************************************************
+#dart可用的各种工具的解释部分
+#指引你到其他社区社区寻求dart相关问题帮助的解释部分
+#从web storm软件菜单找出webstrom 中dart开发的帮助文档
+
+https://confluence.jetbrains.com/display/WI/Getting+started+with+Dart
+ ************************************************************************
