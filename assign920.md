@@ -131,6 +131,55 @@ https://webdev.dartlang.org/codelabs/ng2/1-skeleton#--what-did-you-get
 ***********************************************************************
 #dart可用的各种工具的解释部分
 #指引你到其他社区社区寻求dart相关问题帮助的解释部分
+***************************************************
+找到的一些关于dart搜索到的资源链接
+官方网站：http://www.dartlang.org/
+
+最新动态：http://news.dartlang.org
+Twitter：https://twitter.com/dart_lang
+新浪微博：@Dart语言
+Google+：https://plus.google.com/+dartlang/posts 
+Dartisans 社群: https://plus.google.com/communities/114566943291919232850
+讨论组（Google Groups）：https://groups.google.com/a/dartlang.org/forum/#!forum/misc
+Stackoverflow 问答支持： http://stackoverflow.com/questions/tagged/dart
+
+
+在线试用：http://try.dartlang.org/
+API 文档：http://api.dartlang.org/
+FAQ：http://www.dartlang.org/support/faq.html
+所有文章：http://www.dartlang.org/articles/index.html
+语言向导：http://www.dartlang.org/docs/language-tour/
+类库向导：http://www.dartlang.org/docs/library-tour/
+Web开发向导：http://www.dartlang.org/docs/tutorials/
+代码风格指南：http://www.dartlang.org/articles/style-guide/
+
+讲义ppt：http://www.dartlang.org/slides/  (或微盘下载 http://vdisk.weibo.com/u/3198820011 )
+语言规范：http://www.dartlang.org/docs/spec/index.html
+包管理工具Pub： http://pub.dartlang.org/
+Bugs 和 Feature 列表：http://dartbug.com/ 
+
+Dart 与 JavaScript、C#、Python 对比：http://synonym.dartlang.org/
+Dart VM、 V8 和 dart2js 性能对比：http://www.dartlang.org/performance/
+Github 上各种 Dart 项目：https://github.com/dart-lang
+
+视频集合：
+Dart Screencasts
+Dart Tips
+Youtube 上搜索 DartlangTV
+
+工具：
+SDK：http://www.dartlang.org/docs/sdk/ ，SDK 包含 Dart VM、dart2js、Pub、库和工具。
+Dartium：http://www.dartlang.org/dartium/ ，内嵌 Dart VM 的 Chromium ，可以在浏览器中直接执行 dart 代码。
+Dart Editor：http://www.dartlang.org/docs/editor/ ，基于 Eclipse 的全功能 IDE，包含以上所有。
+国内镜像下载地址：http://dart.hanguokai.com/
+
+
+非官方资源：
+Seth Ladd 的博客 http://blog.sethladd.com/ ，Dart 官方成员中最活跃的宣传员，他的博客上写有大量关于 Dart 的文章。
+Chris Strom 的博客 http://japhr.blogspot.com/ ，《Dart for Hipsters》的作者，有许多 Dart 的文章。
+Dartwatch http://blog.dartwatch.com/ ，《Dart in Action》的作者创建的关于 Dart 的网站。
+15分钟看代码学 Dart：Learn Dart in Y Minutes http://learnxinyminutes.com/docs/dart/
+***********************************************************************************
 #从web storm软件菜单找出webstrom 中dart开发的帮助文档
 
 https://confluence.jetbrains.com/display/WI/Getting+started+with+Dart
