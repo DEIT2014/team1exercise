@@ -21,17 +21,6 @@ void main() {
 }
 
 
-void requestData()
-{
-  //todo 向服务器发送请求，要求数据
-}
- void getData(){
-   //todo 与服务器相连，获取JSON数据
- }
-
-void outputData(){
-  //todo 将数据按要求填入各位置id
-}
 
 void LogIn(MouseEvent event){
 +  //todo 将用户键入的用户名密码与数据库中用户信息表user比较
