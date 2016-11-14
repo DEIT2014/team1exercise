@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="scaffolded-by" content="https://github.com/google/stagehand">
-    <title>team2exercise</title>
+    <title>team1exercise</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
@@ -19,7 +19,71 @@
 
 <body>
 
-  <div id="output"></div>
+<div class="headbg" >
+    <div><img src="用户登录图片">  </div>
+
+</div>
+<div class="login">
+    <form >
+    姓名：<br>
+    <input type="text" name="姓名" >
+    <br>
+    密码:<br>
+        <input type="password" name="password">
+    <br><br>
+    <input type="button" value="确认">
+</form>
+
+   </div>
+
+<div class="container">
+    <div class="left side">
+
+        <form>
+            热量控制值：
+            <div class="calMax">
+                <input (input)="updatecalMax($event.target.value)"
+                       type="text" maxlength="15">
+            </div>
+
+            营养元素：
+            <form>
+                钙：
+                <input type="checkbox" name="钙">
+                蛋白质：
+                <input type="checkbox" name="蛋白质">
+
+                维生素c：
+                <input type="checkbox" name="维生素c">
+
+
+
+            </form>
+            身体状况：
+            <form>
+                感冒：
+                <input type="checkbox" name="感冒">
+                上火：
+                <input type="checkbox" name="上火">
+                心脏病：
+                <input type="checkbox" name="心脏病">
+
+            </form>
+
+
+        </form>
+
+        <button  (click)="getData()">
+            {{buttonText}}
+        </button>
+
+
+    </div>
+
+
+</div>
+
 
 </body>
 </html>
+，
