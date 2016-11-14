@@ -3,44 +3,21 @@
 
 import 'dart:html';
 
-String login_name;
-String login_psw;
-String signup_name;
-String signup_psw;
-String signup_psw;
++String login_username;//登录界面的用户名变量
++String login_password;//登录界面的密码变量
++String signup_username;//注册界面的用户名变量
++String signup_password;//注册界面的密码变量
++String signup_confirmpw;//注册界面确认密码的变量
++var select_element; //用户选择所需元素
++var select_taboo1;//用户注册页面选择忌口食物
++var select_taboo2;//用户APP主页选择忌口食物
++var select_calory;//用户设定热量控制
++var select_food;//用户选择食物
++var selcet_quantity;//用户选择食物重量
 
 
 void main() {
-  /// 登录
-  login_name=querySelector('#login_name');
-  login_psw=querySelector('#login_psw');
-  querySelector('#login_Btn')
-    ..text='登录'
-    ..onClick.listen(login);
-  querySelector('#signup_Btn')
-    ..text='注册'
-    ..onClick.listen(gosignpage);
-
-  /// 注册
-  signup_name=querySelector('#signup_name');
-  signup_psw=querySelector('#signup_psw');
-   querySelector('#signup_Btn')
-    ..text='注册'
-    ..onClick.listen(signup);
-
-
- ///功能1：开始搭配食物
-   //？记录用户选中的信息
-  querySelector('#toMatch')
-    ..text='开始搭配'
-    ..onClick.listen(requestData);
-
-///功能2：开始计算卡路里
-  //？记录用户选中的信息
-  querySelector('#toCalculate')
-    ..text="开始计算";
-    ..onClick.listen(calculateCAL);
-
+  
 }
 
 
@@ -56,33 +33,5 @@ void outputData(){
   //todo 将数据按要求填入各位置id
 }
 
-void nutriChart(){
-  //todo 画营养结构图
-}
 
-void calculateCAL(){
-  //todo 计算选中食物的热量
-}
 
-void signin(MouseEvent event){
-  //todo 用户注册 姓名&密码
-}
-
-void signup(MouseEvent event) {
-  //todo 将用户注册账号密码写入数据库
-}
-
-void gohomepage(MouseEvent event){
-  //todo 隐藏当前页，显示首页
-  //todo 清除本次计算出的数据
-  }
-void gopage1(MouseEvent event) {
-//todo 隐藏当前页，显示用户搭配界面
-//todo 清除本次存储的内容
-}
-void gologpage(MouseEvent event) {
-//todo 隐藏当前页，显示用户登录界面
-}
-void gosignpage(MouseEvent event) {
-//todo 隐藏当前页，显示用户注册界面
-}
