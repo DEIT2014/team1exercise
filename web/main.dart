@@ -33,5 +33,29 @@ void outputData(){
   //todo 将数据按要求填入各位置id
 }
 
-
+void LogIn(MouseEvent event){
++  //todo 将用户键入的用户名密码与数据库中用户信息表user比较
++  //todo 若对比成功，隐藏登录界面，显示App主页
++}
++
++/// 用来接受用户点击注册按钮以后的响应工作
++/// 参数[event]是鼠标事件....
++void SignUp(MouseEvent event){
++  //todo 隐藏登录界面，显示注册界面
++}
++
++/// 接受用户点击注册页面的注册按钮的响应
++/// 参数[event]是鼠标事件....
++void SignUpOk(MouseEvent event){
++  //todo 将数据写入数据库中的用户信息表
++  //todo 显示注册成功界面
++}
++
++/// 接受用户点击注册成功页面的确定按钮的响应
++/// 参数[event]是鼠标事件....
++void ReturnSignIn(MouseEvent event){
++  //todo 隐藏注册界面和注册成功界面，显示登录界面
+ }
++
++///开始搭配中用户选择控制热量范围
 
