@@ -1,8 +1,0 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-
-html,
-body{ margin:0px; padding:0px; height: 100%; }
-.headbg{ background: black; color: white; height:48px; }
-.userManagerAll{ height: 100%; width: 100%; }
-.leftside{ background: #E6E6E6; float: left; height: 100%; width: 200px; margin: 0px; overflow-y:auto; }
-.rightside{ background: white; height: 100%; width:100%; align:right; }
