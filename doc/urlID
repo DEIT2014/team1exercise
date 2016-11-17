@@ -1,0 +1,35 @@
+<table>
+  <tr>
+    <td>URL</td>
+    <td>描述</td>
+  </tr>
+  <tr>
+    <td>/</td>
+    <td>首页</td>
+  </tr>
+  <tr>
+    <td>/login</td>
+    <td>登录</td>
+  </tr>
+  <tr>
+    <td>/signup</td>
+    <td>注册</td>
+  </tr>
+  <tr>
+    <td>/match</td>
+    <td>搭配</td>
+  </tr>
+  <tr>
+    <td>/calculate</td>
+    <td>计算</td>
+  </tr>
+  <tr>
+    <td>/match/fanchart</td>
+    <td>元素搭配扇形</td>
+  </tr>
+  <tr>
+    <td>/match/tablemenu</td>
+    <td>搭配表格</td>
+  </tr>
+
+</table>
