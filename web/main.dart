@@ -2,6 +2,8 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:html';
+import 'dart:core';
+
 
 String login_username;//登录界面的用户名变量
 String login_password;//登录界面的密码变量
@@ -15,6 +17,7 @@ var select_calory;//用户设定热量控制
 var select_food;//用户选择食物
 var selcet_quantity;//用户选择食物重量
 
+var localhost="127.0.0.1:8080";
 void main() {
   /// 登录界面
   login_username = querySelector('#LogIn_Username'); //输入用户名
