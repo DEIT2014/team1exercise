@@ -1,0 +1,9 @@
+URL	| 描述
+----------|----------
+/	|首页
+/login|登录
+/signup	|注册
+/match	|搭配
+/calculate	|计算
+/match/fanchart	|元素搭配扇形
+/match/tablemenu	|搭配表格

@@ -11,6 +11,7 @@ environment:
 #  my_dependency: any
 
 dependencies:
+  sqljocky:
   shelf:
   shelf_route:
   sqljocky:

@@ -1,21 +1,26 @@
 import 'package:shelf/shelf.dart';
 import 'package:shelf_route/shelf_route.dart';
-
-
+import 'dart:async';
+import 'package:sqljocky/constants.dart';
+import 'package:sqljocky/utils.dart';
 import 'package:sqljocky/sqljocky.dart';
 
-main() async {
-   //登录数据取出数据库
+
+main() async{
+
+//登录数据取出数据库
     var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'', db: 'database', max: 5);//与数据库相连
     var results = await pool.query('select username,userid,password from user');
     results.forEach((row) {
       print('Username: ${row.username}, Userid: ${row.userid}, Password: ${row.password}');
     });
-   //注册数据写入数据库
+    //注册数据写入数据库
     var query = await pool.prepare('insert into users (username, userid, password) values (杨洋, 2, 19910909)');
     var result = await query.execute(['杨洋', '2', '19910909']);
     print("New user's name: ${result.username}");
+
     var myRouter = router()
+    ..get('/',GetRequest)
     ..get('/', ToHomePage)
     ..get('/login',ToLogIn)
     ..get('/signup',ToSignUp)
@@ -23,8 +28,26 @@ main() async {
     ..get('/calculate', ToCalculatePage)
     ..get('/fanchart',FanChart)
     ..get('/tablemenu',TableMenu);
-     io.serve(myRouter.handler, 'localhost', 8080);
+    io.serve(myRouter.handler, '127.0.0.1', 8080);
 }
+GetRequest(request) async{
+
+//todo 访问数据库获取数据
+var pool = new ConnectionPool(host: 'localhost', port: 3306, user:
+'root', password: '', db: 'database', max: 5);//连接数据库
+
+var results = await pool.query('select username,userid,password from user');
+  results.forEach((row) {
+    print('Username: ${row.name}, Userid: ${row.userid}, Password: ${row.password}');
+  });
+  //注册数据写入数据库
+  var query = await pool.prepare('insert into users (username, userid, password) values (aaa, 1, 19910909)');
+  var result = await query.execute(['aaa', '2', '19910909']);
+  print("New user's name: ${result.username}");
+
+}
+
+
 ToHomePage(_){
   //todo 登录成功后跳转到主页
   return new Response.ok("Hello_HomePage");
