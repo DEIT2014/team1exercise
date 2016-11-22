@@ -13,6 +13,8 @@ environment:
 dependencies:
   shelf:
   shelf_route:
+  sqljocky:
+
 
 
 dev_dependencies:

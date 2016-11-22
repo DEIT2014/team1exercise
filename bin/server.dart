@@ -1,9 +1,21 @@
 import 'package:shelf/shelf.dart';
-import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_route/shelf_route.dart';
 
-void main() {
-  var myRouter = router()
+
+import 'package:sqljocky/sqljocky.dart';
+
+main() async {
+   //登录数据取出数据库
+    var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'', db: 'database', max: 5);//与数据库相连
+    var results = await pool.query('select username,userid,password from user');
+    results.forEach((row) {
+      print('Username: ${row.username}, Userid: ${row.userid}, Password: ${row.password}');
+    });
+   //注册数据写入数据库
+    var query = await pool.prepare('insert into users (username, userid, password) values (杨洋, 2, 19910909)');
+    var result = await query.execute(['杨洋', '2', '19910909']);
+    print("New user's name: ${result.username}");
+    var myRouter = router()
     ..get('/', ToHomePage)
     ..get('/login',ToLogIn)
     ..get('/signup',ToSignUp)
@@ -11,7 +23,7 @@ void main() {
     ..get('/calculate', ToCalculatePage)
     ..get('/fanchart',FanChart)
     ..get('/tablemenu',TableMenu);
-  io.serve(myRouter.handler, 'localhost', 8080);
+     io.serve(myRouter.handler, 'localhost', 8080);
 }
 ToHomePage(_){
   //todo 登录成功后跳转到主页
