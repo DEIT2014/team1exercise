@@ -3,7 +3,7 @@
 
 import 'dart:html';
 import 'dart:core';
-
+import 'package:route_hierarchical/client.dart';
 
 String login_username;//登录界面的用户名变量
 String login_password;//登录界面的密码变量
@@ -17,8 +17,32 @@ var select_calory;//用户设定热量控制
 var select_food;//用户选择食物
 var selcet_quantity;//用户选择食物重量
 
-var localhost="127.0.0.1:8080";
+var localhost="127.0.0.1";
 void main() {
+  var router = new Router();
+  router.root
+        ..addRoute(
+              name: 'home',
+              path: '/',
+              mount: (router) =>
+              router
+                ..addRoute(
+                    name: 'login',
+                    path: '/login',
+                    defaultRoute: true,
+                    enter: showLoginPage)
+                ..addRoute(
+                    name: 'SignUp',
+                    path: '/signup',
+                    defaultRoute: true,
+                    enter: showSignupPage)
+                ..addRoute(
+                    name: 'match',
+                    path: '/match',
+                    defaultRoute: true,
+                    enter: showMatchResult)))
+
+
   /// 登录界面
   login_username = querySelector('#LogIn_Username'); //输入用户名
   login_password = querySelector('#LogIn_Password'); //输入密码
@@ -76,7 +100,21 @@ void main() {
 
   /// 用来接受用户点击登录按钮以后的响应工作
   /// 参数[event]是鼠标事件....
-  void LogIn(MouseEvent event) {
+
+
+void showLoginPage(RouteEvent e){
+//todo 显示登录页面
+}
+void showSignupPage(RouteEvent e){
+  //todo 显示注册页面
+
+}
+void showMatchResult(RouteEvent e){
+  //todo 显示搭配页面
+
+}
+
+  void LogIn(RouteEvent e) {
     //todo 将用户键入的用户名密码与数据库中用户信息表user比较
     //todo 若对比成功，隐藏登录界面，显示App主页
   }
