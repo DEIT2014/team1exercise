@@ -1,0 +1,28 @@
+html,body {
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding: 0;
+}
+
+#Signup_div{
+    text-align: center;
+
+    height:100%;
+    width:100%;
+    position: relative;}
+
+#LogIn_div{
+    text-align: center;
+    -moz-background-size:100px 100px;
+    background-size:100px 100px;
+    background-repeat:no-repeat;
+    height: 100px;
+     word-spacing:50px;
+    letter-spacing: 10px;
+     margin:auto;
+    padding-left:60px;
+    width: 800px;
+    margin-top: 50px;
+}
+

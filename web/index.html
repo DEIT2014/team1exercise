@@ -16,58 +16,75 @@
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
 </head>
+<body style="background-color: beige; text-align: center">
 <div>
-<div id=Signup_div class="Signup_div">
-    <form >
-        姓名：<br>
-        <input type="text" name="姓名" >
-        <br>
-        密码:<br>
-        <input type="password" name="password">
-        <br>
-        确认密码:<br>
-        <input type="password" name="confirm_password">
-        <br>
-        忌口食物:<br>
-        <input type="checkbox" name="signup_taboo">
-        <br>
-        <br>
-        <input type="button" value="注册">
+    <h1>test area</h1>
+    <form id="test_area" name="test">
+        测试：<input type="text" id="test_input">
+        <input type="submit" id="ok" name="查询">
     </form>
-</div>
+<br>
+    <br>
+    <h1>注册页面</h1>
+<form id=Signup_div class="Signup_div" style="vertical-align:middle">
+    <p> 姓名：<input type="text" id="user_name_sign" ></p>
+    <p> 密码: <input type="password" id="user_pw_log"></p>
+    <p>确认密码:  <input type="password" id="user_pw_confirm"></p>
+    <p> 忌口食物: 鸡蛋<input type="checkbox" id="signup_taboo_1">
+                  海鲜<input type="checkbox" id="signup_taboo_2">
+                  奶制品<input type="checkbox" id="signup_taboo_3">
+                  花生<input type="checkbox" id="signup_taboo_4"></p>
+    <nav>
+        <a  href="" id="SignUp_Btn" title="SignUp">注册</a>
+        &nbsp;
+        <a  href="" id="Cancel_sign_Btn" title="Cancel">取消</a>
+    </nav>
 
-<div id="LogIn_div" class="LogIn_div")
-    <form >
-        姓名：<br>
-        <input type="text" name="姓名" >
-        <br>
-        密码:<br>
-        <input type="password" name="password">
-        <br>
-        确认密码:<br>
-        <input type="password" name="confirm_password">
-        <br>
-        忌口食物:<br>
-        <input type="checkbox" name="signup_taboo">
-        <br>
-        <br>
-        <input type="button" value="注册">
-    </form>
-</div>
+    </p>
+</form>
 
+   <h1>登录页面</h1>
+<form id="LogIn_div" class="LogIn_div">
+    <p> 姓名：<input type="text" name="姓名" ></p>
+    <p> 密码:<input type="password" name="password"></p>
+    <nav>
+        <a  href="" id="LogIn_Btn" title="LogIn">登录</a>
+        <a  href="" id="Cancel_log_Btn" title="LogIn">取消</a>
+    </nav>
+</form>
+
+</div>
+   <h1>主页</h1>
 <div id="Homepage_div" class="Homepage">
     <div id="header">
         <button id="LogIn_Btn" class="plat_Btn">登录</button>
         <img id="LogIn_img" src="">
     </div>
+    <h3>搭配模块</h3>
     <div id="ToMatch_div">
         <button id="ToMatch_Btn">开始搭配</button>
-        
     </div>
+
+    <h3>计算模块</h3>
     <div id="ToCalculate_div">
         <button id="ToCalculate_Btn">开始计算</button>
         <input id="ChooseFood">
-        <input id="FoodQuantity">
+        <form>
+            <p>鸡蛋<input type="checkbox"  id="eggs" name="eggs">
+            牛肉<input type="checkbox" name="beaf">
+            精瘦猪肉<input type="checkbox" name="slim_pork">
+            五花肉<input type="checkbox" name="reguler_pork">
+            鸡胸肉<input type="checkbox" name="chicken_chest">
+            鸡腿肉<input type="checkbox" name="chicken_leg">
+            鸡翅<input type="checkbox" name="chicken_leg">
+            面条<input type="checkbox" name="noodle">
+            米饭<input type="checkbox" name="rice">
+            牛奶<input type="checkbox" name="milk">
+            馒头<input type="checkbox" name="ccake">
+            牛奶<input type="checkbox" name="milk"></p>
+            <p>馒头<input type="checkbox" name="ccake"></p>
+        </form>
+        <input  id="FoodQuantity">
         <button id="Food_add_Btn">添加</button>
         <textarea id="Food_chosen_area">已选择</textarea>
     </div>

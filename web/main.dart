@@ -104,6 +104,8 @@ void main() {
 
 void showLoginPage(RouteEvent e){
 //todo 显示登录页面
+
+
 }
 void showSignupPage(RouteEvent e){
   //todo 显示注册页面
@@ -114,7 +116,7 @@ void showMatchResult(RouteEvent e){
 
 }
 
-  void LogIn(RouteEvent e) {
+  void LogIn(MouseEvent e) {
     //todo 将用户键入的用户名密码与数据库中用户信息表user比较
     //todo 若对比成功，隐藏登录界面，显示App主页
   }

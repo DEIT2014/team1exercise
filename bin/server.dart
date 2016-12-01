@@ -31,7 +31,6 @@ main() async{
     io.serve(myRouter.handler, '127.0.0.1', 8080);
 }
 GetRequest(request) async{
-
 //todo 访问数据库获取数据
 var pool = new ConnectionPool(host: 'localhost', port: 3306, user:
 'root', password: '', db: 'database', max: 5);//连接数据库
