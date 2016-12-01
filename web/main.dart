@@ -4,8 +4,9 @@ import 'dart:html';
 import 'dart:core';
 import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
-HttpRequest request;
-
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import'dart:async';
 var login_username;//登录界面的用户名变量
 var login_password;//登录界面的密码变量
 var signup_username;//注册界面的用户名变量
@@ -16,7 +17,7 @@ var select_taboo1;//用户注册页面选择忌口食物
 var select_taboo2;//用户APP主页选择忌口食物
 var select_calory;//用户设定热量控制
 var select_food;//用户选择食物
-var selcet_quantity;//用户选择食物重量
+var select_quantity;//用户选择食物重量
 
 
 var host="http://127.0.0.1:8080";
@@ -24,10 +25,13 @@ void main() {
   /// 登录界面
   login_username = querySelector('#LogIn_Username'); //输入用户名
   login_password = querySelector('#LogIn_Password'); //输入密码
-  querySelector('#LogIn_Btn1')
-    ..onClick.listen(LogIn); //用户登录按钮
-  querySelector('#SignUp_Btn1')
-    ..onClick.listen(SignUp); //用户注册按钮
+  var router = new Router(useFragment: true);
+  router.root
+    ..addRoute(name: 'tosignup', path: '/tosignup', enter: ToSignUp)
+    ..addRoute(name:'home',path:'/',enter: (_) => null);
+  querySelector("#SignUp_Btn1").attributes['href'] = router.url('tosignup');
+  router.listen();//显示用户注册界面
+  querySelector("#LogIn_Btn1").onClick.listen(LogIn);
 
   /// 注册界面
   signup_username = querySelector('#SignUp_Username'); //输入用户名
@@ -36,7 +40,7 @@ void main() {
    ..onClick.listen(Checkbox_Taboo1);
   signup_password = querySelector('#SignUp_Password'); //输入密码
   signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
-  querySelector('#SignUp_Btn2').onClick.listen(SignUpOk); //注册成功窗口显示
+  querySelector("#SignUp_Btn2").onClick.listen(SignUp);//用户注册按钮
 
 /*  /// 注册成功界面
   querySelector('#SucSignUp_Btn')
@@ -77,11 +81,41 @@ querySelector('#Select_Element')
   void LogIn(MouseEvent event) {
     //todo 将用户键入的用户名密码与数据库中用户信息表user比较
     //todo 若对比成功，隐藏登录界面，显示App主页
+    var request=HttpRequest.getString("http://127.0.0.1:8080").then(onLogIn);
   }
+void onLogIn(responseText) {
+  var jsonString = responseText;
+  var user = JSON.decode(jsonString);
+  var userlist = user["User"];
+  int a = 0;
+  for (var x in userlist) {
+    print(x["Username"]);
+    if (x["Username"] == login_username.value) {
+      print(x["Password"]);
+      if (x["Password"] == login_password.value) {
+        print(x["Userid"]);
+        var router = new Router(useFragment: true);
+        router.root
+          ..addRoute(name: 'home', path: '/', enter: Home);
+        querySelector('#LogIn_Btn1').attributes['href'] =
+            router.url('home');
+        router.listen();
+        a = 1;
+      }
+    }
+    if (a == 0) {
+      querySelector("#SignIn_Error").text = "用户名或者密码错误，请重新登录";
+    }
+  }
+}
 
+void SignUp(MouseEvent event) {
+  //todo 将用户键入的用户名密码加入数据库
+  var request=HttpRequest.getString("http://127.0.0.1:8080").then(onSignUp);
+}
 /// 接受用户点击注册页面的注册按钮的响应
 /// 参数[event]是鼠标事件....
-  void SignUp(MouseEvent event) {
+  void ToSignUp(RouteEvent event) {
     //todo 隐藏登录界面，显示注册界面
   }
 ///注册界面中用户选择忌口食物
@@ -89,28 +123,6 @@ void Checkbox_Taboo1(MouseEvent event) {
   //todo 勾选复选框
   // todo 将用户忌口食物赋值给变量做约束条件
 }
-  /// 参数[event]是鼠标事件....
-  void SignUpOk(MouseEvent event) {
-    //todo 将数据写入数据库中的用户信息表
-    //todo 显示注册成功界面
-    String url = "http://$host/signup";
-    request = new HttpRequest();
-    request.onReadyStateChange.listen(onData);
-    request.open('POST', url);
-/*    request.send(" your jsonndata");*/
-  }
-void onData(_) {
-  if (request.readyState == HttpRequest.DONE && request.status == 200) {
-    querySelector("#SignUp_Btn2").text=request.responseText;
-  }
-}
-
-
-
-
-
-
-
 
 
 
@@ -131,6 +143,10 @@ void onData(_) {
 
 /// 接受用户登录成功的响应
 ///开始搭配中用户选择控制热量范围
+  void Home(RouteEvent event)
+{
+     //todo 注册成功后显示主页面
+}
   void Checkbox_Calory(MouseEvent event) {
     //todo 设置数值
     //todo 将用户控制热量范围赋值给变量做约束条件

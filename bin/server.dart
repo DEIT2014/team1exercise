@@ -12,99 +12,55 @@ import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
 
 
+final DATA_FILE="E:\\dart\\project\\team1exercise\\bin\\user.json";
+
+final _headers={"Access-Control-Allow-Origin":"*",
+  "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+  "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
 
 Map<String, String> data = new Map();
 var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
 
 
-main(List<String> args) async{
-
-
-
-
-
-
-  var parser = new ArgParser()
-    ..addOption('port', abbr: 'p', defaultsTo: '8080');
-  var result = parser.parse(args);
-  var port = int.parse(result['port'], onError: (val) {
-    stdout.writeln('Could not parse port value "$val" into a number.');
-    exit(1);
-  });
-/*    var myRouter = router()
-    ..get('/',GetRequest)
+void main() {
+  var myRouter = router()
+    ..get('/', GetRequest)
     ..get('/', ToHomePage)
-    ..get('/login',ToLogIn)
-    ..get('/signup',ToSignUp)
+    ..get('/login', ToLogIn)
+
     ..get('/match', ToMatchPage)
     ..get('/calculate', ToCalculatePage)
-    ..get('/fanchart',FanChart)
-    ..get('/tablemenu',TableMenu);*/
+    ..get('/fanchart', FanChart)
+    ..get('/tablemenu', TableMenu)
 
-  var myRouter = router();
-  myRouter.get('/login/{userid}', _echoUserLogin);
-  myRouter.post('/signup ', _echoRequest);
-  //配置cors参数
-  Map <String, String> corsHeader = new Map();
-  corsHeader["Access-Control-Allow-Origin"] = "*";
-  corsHeader["Access-Control-Allow-Methods"] = 'POST,GET,OPTIONS';
-  corsHeader['Access-Control-Allow-Headers'] =
-  'Origin, X-Requested-With, Content-Type, Accept';
-  var routerHandler = myRouter.handler;
-  //配置shelf中间件和路由handle
-  var handler = const shelf.Pipeline()
-      .addMiddleware(shelf.logRequests())
-      .addMiddleware(
-      shelf_cors.createCorsHeadersMiddleware(corsHeaders: corsHeader))
-      .addHandler(routerHandler);
 
-  //启动服务器
-  io.serve(handler, '127.0.0.1', 8080).then((server) {
-    print('Serving at http://${server.address.host}:${server.port}');
+    ..post('/signup', ToSignUp);
+
+  io.serve(myRouter.handler, '127.0.0.1', 8080);
+}
+
+//从数据库取出数据（用户登录时）
+ToLogIn(request) async {
+  var _1userdata =new Map<String,String>();
+  var userdata=new List();
+  var usersdata=new Map<String,String>();
+  var data=await pool.query('select username,userid,password from user');
+
+  await data.forEach((row) {
+    _1userdata={'"Username"':'"${row.username}"','"Userid"':'"${row.userid}"','"Password"':'"${row.password}"',};//按照这个格式存放单条数据
+    userdata.add(userdata1);//将该数据加入数组中
   });
-}
-//从数据库取出数据
-Future<String> getDataFromDb() async {
-  var results = await pool.query('select username,userid,password from user');
-  int i = 0;
-  results.forEach((row) {
-    //列出所有用户名
-    String index1 = "Username" + i.toString();
-    data[index1] = row.username;
-    String index2 = "Userid" + i.toString();
-    data[index2] = row.userid;
-    String index3 = "Password" + i.toString();
-    data[index3] = row.password;
-    i++;
-    print('Username: ${row.username}, Userid: ${row.userid}, Password: ${row.password}');
-  });
-  String jsonData = JSON.encode(data);
-  return jsonData;
 
+  usersdata={'"User"':userdata};
+  return (new Response.ok(usersdata.toString(),headers: _headers));
 }
 
-Future<shelf.Response> _echoUserLogin(shelf.Request request) async {
-  //从数据库获取数据
-  String userInfor = await getDataFromDb();
-  //把这个post过来的数据有返回给客户端
-  return new shelf.Response.ok(
-      'server successfully get data from database: "${userInfor}');
-}
 
-Future<String>PostDataToDb() async{
+ToSignUp(request)async{
   //注册数据写入数据库
   var query = await pool.prepare('insert into user (username, userid, password) values (?, ?, ?)');
   var result2 = await query.execute(['王巍', 25, '19910909']);
   print("New user's name: ${result2.insertId}");
-}
-
-Future<shelf.Response> _echoRequest(shelf.Request request) async {
-  //接受post过来的数据
-/*  String content = await request.readAsString();*/
-  String content = await PostDataToDb();
-  //把这个post过来的数据有返回给客户端
-  return new shelf.Response.ok(
-      'server susscefullly get the post data from client ');
 }
 
 
