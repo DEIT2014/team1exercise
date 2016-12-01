@@ -16,84 +16,80 @@
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
 </head>
+<body>
 <div>
-<div id=Signup_div class="Signup_div">
-    <form >
-        姓名：<br>
-        <input type="text" name="姓名" >
-        <br>
-        密码:<br>
-        <input type="password" name="password">
-        <br>
-        确认密码:<br>
-        <input type="password" name="confirm_password">
-        <br>
-        忌口食物:<br>
-        <input type="checkbox" name="signup_taboo">
-        <br>
-        <br>
-        <input type="button" value="注册">
-    </form>
-</div>
-
-<div id="LogIn_div" class="LogIn_div")
-    <form >
-        姓名：<br>
-        <input type="text" name="姓名" >
-        <br>
-        密码:<br>
-        <input type="password" name="password">
-        <br>
-        确认密码:<br>
-        <input type="password" name="confirm_password">
-        <br>
-        忌口食物:<br>
-        <input type="checkbox" name="signup_taboo">
-        <br>
-        <br>
-        <input type="button" value="注册">
-    </form>
-</div>
-
-<div id="Homepage_div" class="Homepage">
-    <div id="header">
-        <button id="LogIn_Btn" class="plat_Btn">登录</button>
-        <img id="LogIn_img" src="">
+    <div id=Signup_div class="Signup_div">
+        <form >
+            用户名：<br>
+            <input type="text" id="SignUp_Username" >
+            <br>
+            密码:<br>
+            <input type="password" id="SignUp_Password">
+            <br>
+            确认密码:<br>
+            <input type="password" id="SignUp_ConfirmPW">
+            <br>
+            忌口食物:<br>
+            <input type="checkbox" id="SignUp_Taboo1">
+            <br>
+            <br>
+            <input type="button" id="SignUp_Btn2" value="注册">
+        </form>
     </div>
-    <div id="ToMatch_div">
-        <button id="ToMatch_Btn">开始搭配</button>
-        
-    </div>
-    <div id="ToCalculate_div">
-        <button id="ToCalculate_Btn">开始计算</button>
-        <input id="ChooseFood">
-        <input id="FoodQuantity">
-        <button id="Food_add_Btn">添加</button>
-        <textarea id="Food_chosen_area">已选择</textarea>
-    </div>
-    <div id="Food_Result_div" class="Food_Result_div">
-        <div id="NutriChart_area">
-           <div id="Fan_Chart">
 
-           </div>
+    <div id="LogIn_div" class="LogIn_div">
+        <form >
+            用户名：<br>
+            <input type="text" id="LogIn_Username" >
+            <br>
+            密码:<br>
+            <input type="password" id="LogIn_Password">
+            <br>
+            <br>
+            <input type="button" id="LogIn_Btn1" value="登录">
+            <input type="button" id="SignUp_Btn1" value="注册">
+        </form>
+    </div>
+
+    <div id="Homepage_div" class="Homepage">
+        <div id="header">
+            <button id="LogIn_Btn2">登录</button>
+            <img id="LogIn_img" src="">
         </div>
-        <table id="Table_Menu" clas="Table_Menu">
-            <ul >
-                <li>
+        <div id="ToMatch_div">
+            <button id="ToMatch_Btn">开始搭配</button>
 
-                </li>
+        </div>
+        <div id="ToCalculate_div">
+            <button id="ToCalculate_Btn">开始计算</button>
+            <input id="ChooseFood">
+            <input id="FoodQuantity">
+            <button id="Food_add_Btn">添加</button>
+            <textarea id="Food_chosen_area">已选择</textarea>
+        </div>
+        <div id="Food_Result_div" class="Food_Result_div">
+            <div id="NutriChart_area">
+                <div id="Fan_Chart">
 
-            </ul>
-            <ul id="Food_result_1">
-                <li>
+                </div>
+            </div>
+            <table id="Table_Menu" clas="Table_Menu">
+                <ul >
+                    <li>
 
-                </li>
+                    </li>
 
-            </ul>
+                </ul>
+                <ul id="Food_result_1">
+                    <li>
 
-        </table>
+                    </li>
+
+                </ul>
+
+            </table>
+        </div>
     </div>
 </div>
-
 </body>
 </html>
