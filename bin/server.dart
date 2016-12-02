@@ -1,16 +1,9 @@
 import 'package:shelf/shelf.dart';
-import 'package:shelf_route/shelf_route.dart';
-import 'dart:async';
-import 'package:sqljocky/constants.dart';
-import 'package:sqljocky/utils.dart';
-import 'package:sqljocky/sqljocky.dart';
-import 'dart:io';
-import 'dart:convert';
-import 'package:args/args.dart';
-import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
-import 'package:shelf_cors/shelf_cors.dart' as shelf_cors;
-
+import 'package:shelf_route/shelf_route.dart';
+import 'package:sqljocky/sqljocky.dart';
+import 'dart:core';
+import 'dart:io';
 
 final DATA_FILE="E:\\dart\\project\\team1exercise\\bin\\user.json";
 
@@ -18,13 +11,11 @@ final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
   "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
 
-Map<String, String> data = new Map();
 var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
 
 
 void main() {
   var myRouter = router()
-    ..get('/', GetRequest)
     ..get('/', ToHomePage)
     ..get('/login', ToLogIn)
 
@@ -47,8 +38,8 @@ ToLogIn(request) async {
   var data=await pool.query('select username,userid,password from user');
 
   await data.forEach((row) {
-    _1userdata={'"Username"':'"${row.username}"','"Userid"':'"${row.userid}"','"Password"':'"${row.password}"',};//按照这个格式存放单条数据
-    userdata.add(userdata1);//将该数据加入数组中
+    _1userdata={'"Username"':'"${row.username}"','"Userid"':'"${row.userid}"','"Password"':'"${row.password}"'};//按照这个格式存放单条数据
+    userdata.add(_1userdata);//将该数据加入数组中
   });
 
   usersdata={'"User"':userdata};
@@ -59,30 +50,18 @@ ToLogIn(request) async {
 ToSignUp(request)async{
   //注册数据写入数据库
   var query = await pool.prepare('insert into user (username, userid, password) values (?, ?, ?)');
-  var result2 = await query.execute(['王巍', 25, '19910909']);
-  print("New user's name: ${result2.insertId}");
+  var result = await query.execute(['王巍', 21, '19960226']);
+  print("New user's name: ${result.insertId}");
 }
 
 
 
-
-GetRequest(request) async{
-
-//todo 访问数据库获取数据
-
-}
 ToHomePage(_){
   //todo 登录成功后跳转到主页
   return new Response.ok("Hello_HomePage");
 }
-ToLogIn(_){
-  //todo 登录界面，取数据库数据与用户输入信息比较
-  return new Response.ok("Hello_LogInPage");
-}
-ToSignUp(_){
-  //todo 注册界面，点击注册将数据写入数据库
-  return new Response.ok("Hello_SignUpPage");
-}
+
+
 
 ToMatchPage(_){
   //todo 将数据写入Json文件并取出数据库数据联合处理数据
