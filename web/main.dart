@@ -2,49 +2,48 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 import 'dart:html';
 import 'dart:core';
-import 'package:route_hierarchical/client.dart';
 import 'dart:convert' show JSON;
-import'dart:async';
-var login_username;//登录界面的用户名变量
-var login_password;//登录界面的密码变量
-var signup_username;//注册界面的用户名变量
-var signup_password;//注册界面的密码变量
-var signup_confirmpw;//注册界面确认密码的变量
-var select_element; //用户选择所需元素
+import 'package:route_hierarchical/client.dart';
+import 'dart:async';
+InputElement login_username;//登录界面的用户名变量
+InputElement login_password;//登录界面的密码变量
+InputElement signup_username;//注册界面的用户名变量
+InputElement signup_password;//注册界面的密码变量
+InputElement signup_confirmpw;//注册界面确认密码的变量
+/*var select_element; //用户选择所需元素
 var select_taboo1;//用户注册页面选择忌口食物
 var select_taboo2;//用户APP主页选择忌口食物
 var select_calory;//用户设定热量控制
 var select_food;//用户选择食物
-var select_quantity;//用户选择食物重量
+var select_quantity;//用户选择食物重量*/
 
 
-var host="http://127.0.0.1:8080";
+var localhost="http://127.0.0.1:8080";
 void main() {
   /// 登录界面
   login_username = querySelector('#LogIn_Username'); //输入用户名
   login_password = querySelector('#LogIn_Password'); //输入密码
 /*  var router = new Router(useFragment: true);
   router.root
-    ..addRoute(name: 'tosignup', path: '/tosignup', enter: ToSignUp);*/
-/*    ..addRoute(name:'home',path:'/',enter: (_) => null);
+    ..addRoute(name: 'tosignup', path: '/tosignup', enter: ToSignUp);
+    ..addRoute(name:'home',path:'/',enter: (_) => null);
   querySelector("#SignUp_Btn1").attributes['href'] = router.url('tosignup');
   router.listen();//显示用户注册界面*/
   querySelector("#LogIn_Btn1").onClick.listen(LogIn);
 
   /// 注册界面
   signup_username = querySelector('#SignUp_Username'); //输入用户名
-/*  select_taboo1 = querySelector('#SignUp_Taboo1') //选择忌口食物
+  /*select_taboo1 = querySelector('#SignUp_Taboo1') //选择忌口食物
     ..text ='忌口食物'
-   ..onClick.listen(Checkbox_Taboo1);*/
+    ..onClick.listen(Checkbox_Taboo1);*/
   signup_password = querySelector('#SignUp_Password'); //输入密码
   signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
   querySelector("#SignUp_Btn2").onClick.listen(SignUp);//用户注册按钮
 
 /*  /// 注册成功界面
   querySelector('#SucSignUp_Btn')
-    ..onClick.listen(ReturnSignIn); //返回登录界面按钮
-
-
+    ..onClick.listen(ReturnSignIn); //返回登录界面按钮*/
+/*
   ///APP主页开始搭配界面
 querySelector('#Select_Element')
     ..text ='元素'
@@ -79,54 +78,92 @@ querySelector('#Select_Element')
 void LogIn(MouseEvent event) {
   //todo 将用户键入的用户名密码与数据库中用户信息表user比较
   //todo 若对比成功，隐藏登录界面，显示App主页
-  var request=HttpRequest.getString("http://127.0.0.1:8080/login").then(onLogIn);
+  var LogInUsername= login_username.value;
+  var LogInPassword=login_password.value;
+  Map data = {
+    "Username":'${LogInUsername}',
+    "Password":'${LogInPassword}'
+  };
+  var jsonData = JSON.encode(data);
+  HttpRequest request = new HttpRequest();
+  //add a event handler that is called when the request is finished
+  request.onReadyStateChange.listen((_) {
+    if (request.readyState == HttpRequest.DONE &&
+        (request.status == 200 || request.status == 0)) {
+      //data saved
+      print(request.responseText); //output the response from the server
+    }
+  });
+  //post data to the server
+  var url = "http://127.0.0.1:8080/login";
+  request.open("POST", url, async: false);
+  request.send(jsonData);
+  var request1 = HttpRequest.getString("http://127.0.0.1:8080/login").then(
+      onLogIn);
 }
 void onLogIn(responseText) {
   var jsonString = responseText;
-  var user = JSON.decode(jsonString);
-  var userlist = user["User"];
-  int a = 0;
-  for (var x in userlist) {
-    print(x["Username"]);
-    if (x["Username"] == login_username.value) {
-      print(x["Password"]);
-      if (x["Password"] == login_password.value) {
-        print(x["Userid"]);
-        var router = new Router(useFragment: true);
-        router.root
-          ..addRoute(name: 'login', path: '/login', enter: tosignup);
-        querySelector('#LogIn_Btn1').attributes['href'] =
-            router.url('login');
-        router.listen();
-        a = 1;
-      }
-    }
-/*    if (a == 0) {
-      querySelector("#SignIn_Error").text = "用户名或者密码错误，请重新登录";
-    }*/
+  var confirmlist = JSON.decode(jsonString);
+  for (var x in confirmlist){
+    if(x["number"]==1)querySelector("#SignUp_Btn2").text = "登录成功";
+    if(x["number"]==0)querySelector("#SignUp_Btn2").text = "登录失败";
   }
 }
-void tosignup(RouteEvent e) {
+/*void tosignup(RouteEvent e) {
   document.querySelector('#Signup_div').style.display="block";
   document.querySelector('#LogIn_div').style.display="none";
 
-}
+}*/
 void SignUp(MouseEvent event) {
   //todo 将用户键入的用户名密码加入数据库
-  var request=HttpRequest.getString("http://127.0.0.1:8080/signup").then(onSignUp);
+  var SignUpUsername=signup_username.value;
+  var SignUpPassword=signup_password.value;
+  var SignUpConfirpw=signup_confirmpw.value;
+  if(SignUpUsername==''||  SignUpPassword=='' || SignUpConfirpw=='')
+  {
+    querySelector("#SignUp_Btn2").text="用户名和密码不能为空！";
+  }
+  //if(SignUpUserName!=null && SignUpPassword!=null && SignUpConPassword!=null)
+  else{
+    if (signup_password.value == signup_confirmpw.value) {
+      Map data = {
+        "Username":'${SignUpUsername}',
+        "Password":'${SignUpPassword}'
+      };
+      var jsonData = JSON.encode(data);
+      HttpRequest request = new HttpRequest();
+      //add a event handler that is called when the request is finished
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE &&
+            (request.status == 200 || request.status == 0)) {
+          //data saved
+          print(request.responseText); //output the response from the server
+        }
+      });
+      //post data to the server
+      var url = "http://127.0.0.1:8080/signup";
+      request.open("POST", url, async: false);
+      request.send(jsonData);
+      querySelector("#SignUp_Btn2").text = "注册成功！";
+      //显示注册成功界面
+    }
+    else{
+      querySelector("#SignUp_Btn2").text = "两次输入密码不同，请重新输入！";
+    }
+  }
 }
-/// 接受用户点击注册页面的注册按钮的响应
+/*/// 接受用户点击注册页面的注册按钮的响应
 /// 参数[event]是鼠标事件....
 void onSignUp(responseText) {
   //todo 隐藏登录界面，显示注册界面
 }
-/*
 ///注册界面中用户选择忌口食物
 void Checkbox_Taboo1(MouseEvent event) {
   //todo 勾选复选框
   // todo 将用户忌口食物赋值给变量做约束条件
-}
-*/
+}*/
+
+
 
 
 

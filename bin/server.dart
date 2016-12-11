@@ -4,56 +4,77 @@ import 'package:shelf_route/shelf_route.dart';
 import 'package:sqljocky/sqljocky.dart';
 import 'dart:core';
 import 'dart:io';
-
-final DATA_FILE="E:\\dart\\project\\team1exercise\\bin\\user.json";
+import 'dart:convert';
 
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
   "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept"};
 
-var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
+
 
 
 void main() {
   var myRouter = router()
-    ..get('/', ToHomePage)
-    ..get('/login', ToLogIn)
+/*    ..get('/', ToHomePage)*/
 
-    ..get('/match', ToMatchPage)
+
+/*    ..get('/match', ToMatchPage)
     ..get('/calculate', ToCalculatePage)
     ..get('/fanchart', FanChart)
     ..get('/tablemenu', TableMenu)
 
 
+    ;*/
+    ..post('/login', ToLogIn)
     ..post('/signup', ToSignUp);
-
   io.serve(myRouter.handler, '127.0.0.1', 8080);
 }
 
 //从数据库取出数据（用户登录时）
 ToLogIn(request) async {
-  var _1userdata =new Map<String,String>();
-  var userdata=new List();
-  var usersdata=new Map<String,String>();
+  request.readAsString().then(CompareData);
+  return (new Response.ok('success!',headers: _headers));
+}
+CompareData(jsondata) async{
+  var  username1;
+  var password1;
+  Map user1=JSON.decode(jsondata);
+  username1=user1['Username'];
+  password1=user1['Password'];
+  var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
   var data=await pool.query('select username,userid,password from user');
 
+
+  var confirm=new Map<String,String>();
   await data.forEach((row) {
-    _1userdata={'"Username"':'"${row.username}"','"Userid"':'"${row.userid}"','"Password"':'"${row.password}"'};//按照这个格式存放单条数据
-    userdata.add(_1userdata);//将该数据加入数组中
+    if ("${row.username}" == username1 && "${row.password}" == password1)
+      confirm = {'number':'1'};
+    else confirm = {'number':'0'};
   });
+  return (new Response.ok(confirm.toString(),headers: _headers));
 
-  usersdata={'"User"':userdata};
-  return (new Response.ok(usersdata.toString(),headers: _headers));
 }
-
 
 ToSignUp(request)async{
   //注册数据写入数据库
-  var query = await pool.prepare('insert into user (username, userid, password) values (?, ?, ?)');
-  var result = await query.execute(['王巍', 21, '19960226']);
-  print("New user's name: ${result.insertId}");
+  request.readAsString().then(InsertData);
+  return (new Response.ok('success!',headers: _headers));
+
+}
+InsertData(data) async{
+  var  newusername;
+  var newpassword;
+  Map newuser=JSON.decode(data);
+  newusername=newuser['Username'];
+  newpassword=newuser['Password'];
+  //todo 将数据存入数据库
+  var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
+  var query=await pool.prepare('insert into user (username,  password) values (?, ?)');
+  var result=await query.execute([newusername,newpassword]);
+
 }
 
+/*
 
 
 ToHomePage(_){
@@ -79,4 +100,4 @@ FanChart(_){
 TableMenu(_){
   //todo 将数据写入Json文件并取出数据库数据，返回搭配食谱
   return new Response.ok("Hello_TableMenu");
-}
+}*/
