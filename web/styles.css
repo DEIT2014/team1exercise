@@ -1,0 +1,43 @@
+.mystyle {
+    background-color: beige;
+    font-family: 微软雅黑;
+}
+
+
+
+.Food_Result_div{
+    display: none;
+    text-align: center;
+
+}
+
+
+.Homepage{
+    text-align: center;
+
+}
+.ToCalculate_div{
+    text-align: center;
+    float: left;
+    padding-right: 10%;
+
+}
+.ToMatch_div{
+    text-align: center;
+    float: left;
+    padding-left: 10%;
+    padding-right: 5%;
+    
+}
+.LogIn_div{
+    display: none;
+    text-align: center;
+}
+.Signup_div{
+    display: none;
+    text-align: center;
+}
+.plat_Btn{
+    float: right;
+    padding-left: 5%;
+}

@@ -16,12 +16,11 @@ SignUp_Btn	|注册按钮
 SignUp_Taboo1|	确认密码文本框
 SucSignUp_Btn	|注册成功返回登录界面按钮
 User_img	|用户头像
-
 Homepage_div |主页模块
-ToMatch_div |搭配模块
-ToMatch_Btn	|开始搭配按钮
-ToCalculate_Btn	|开始计算按钮
-ToCalculate_div |开始计算模块
+ToMatch_div | 搭配模块
+ToMatch_Btn	| 开始搭配按钮
+ToCalculate_Btn	| 开始计算按钮
+ToCalculate_div | 开始计算模块
 Return_homepage	|返回主页按钮
 AalMax	|最大热量值文本值
 SucSignUp_Btn|	用户选择所需元素
@@ -49,7 +48,6 @@ ChooseFood	|用户选择所需元素
 FoodQuantity	|用户选择食物重量
 Food_add_Btn	|添加食物按钮
 Food_chosen_area	|已选择的食物显示区域
-
 Food_Result_div |搭配界面
 NutriChart_area	|营养扇形图的位置
 Fan_Chart	|扇形图
@@ -67,7 +65,6 @@ Food_result_2	|页面2列表中满足条件的食物2
 Food_result_3	|页面2列表中满足条件的食物3
 Food_result_4	|页面2列表中满足条件的食物4
 Food_result_5	|页面2列表中满足条件的食物5
-
 Nutri_result_1|食物1对应的主要营养元素
 Nutri_result_2	|食物2对应的主要营养元素
 Nutri_result_3	|食物3对应的主要营养元素

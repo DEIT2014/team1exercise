@@ -22,18 +22,22 @@
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
 </head>
-<body style="background-color: beige; text-align: center">
+<body class="mystyle">
 <div>
-    <h1>test area</h1>
-    <form id="test_area" name="test">
+    <div style="display: none">
+        <h1>test_area</h1>
+     <form id="test_area" name="test">
         测试：<input type="text" id="test_input">
         <button  id="ok" name="查询">查询</button>
         测试结果：<input type="text" id="test_result">
     </form>
+    </div>
+
     <br>
     <br>
-    <h1>注册页面</h1>
-    <form id=Signup_div class="Signup_div" style="vertical-align:middle">
+
+    <form id=Signup_div class="Signup_div" >
+        <h1>注册页面</h1>
         <p> 姓名：<input type="text" id="SignUp_Username" ></p>
         <p> 密码: <input type="password" id="SignUp_Password"></p>
         <p>确认密码:  <input type="password" id="SignUp_ConfirmPW"></p>
@@ -50,8 +54,9 @@
         </p>
     </form>
 
-    <h1>登录页面</h1>
-    <form id="LogIn_div" class="LogIn_div">
+
+    <form id="LogIn_div" class="LogIn_div" >
+        <h1>登录页面</h1>
         <p> 姓名：<input type="text" id="LogIn_Username" ></p>
         <p> 密码:<input type="password" id="LogIn_Password"></p>
         <nav>
@@ -61,41 +66,80 @@
     </form>
 
 </div>
-<h1>主页</h1>
-<div id="Homepage_div" class="Homepage">
+
+<div id="Homepage_div" class="Homepage" >
+    <h1>健康管理 私人订制</h1>
     <div id="header">
         <button id="LogIn_Btn2" class="plat_Btn">登录</button>
         <img id="LogIn_img" src="">
     </div>
-    <h3>搭配模块</h3>
-    <div id="ToMatch_div">
+
+
+    <div id="ToMatch_div" class="ToMatch_div">
+        <h3>搭配模块</h3>
         <button id="ToMatch_Btn">开始搭配</button>
+        <form>
+            <label>我的定制目标</label>
+            <p>
+                总热量<input type="text" id="Select_Calory">
+            <br>
+                <form>
+                忌口食物
+                鸡蛋<input type="checkbox" id="T1">
+                花生<input type="checkbox" id="T2">
+                海鲜<input type="checkbox" id="T3">
+
+                </form>
+                <form>
+                    身体状况
+                    感冒<input type="checkbox" id="C1">
+                    贫血<input type="checkbox" id="C2">
+                    高血压<input type="checkbox" id="C3">
+                    心脏病<input type="checkbox" id="C4">
+                </form>
+            </p>
+        </form>
     </div>
 
-    <h3>计算模块</h3>
-    <div id="ToCalculate_div">
+
+    <form id="ToCalculate_div" class="ToCalculate_div">
+        <h3>计算模块</h3>
         <button id="ToCalculate_Btn">开始计算</button>
         <input id="ChooseFood">
-        <form>
+        <form >
             <p>鸡蛋<input type="checkbox"  id="eggs" name="eggs">
                 牛肉<input type="checkbox" name="beaf">
                 精瘦猪肉<input type="checkbox" name="slim_pork">
                 五花肉<input type="checkbox" name="reguler_pork">
                 鸡胸肉<input type="checkbox" name="chicken_chest">
+                <br>
                 鸡腿肉<input type="checkbox" name="chicken_leg">
                 鸡翅<input type="checkbox" name="chicken_leg">
+
                 面条<input type="checkbox" name="noodle">
                 米饭<input type="checkbox" name="rice">
                 牛奶<input type="checkbox" name="milk">
                 馒头<input type="checkbox" name="ccake">
-                牛奶<input type="checkbox" name="milk"></p>
-            <p>馒头<input type="checkbox" name="ccake"></p>
+                牛奶<input type="checkbox" name="milk">
+                馒头<input type="checkbox" name="ccake">
+            </p>
+            食物数量<input  id="FoodQuantity">
+
+            <br>
+            <button id="Food_add_Btn">添加</button>
+            <br>
+            <label>已选择</label>
+
+            <textarea id="Food_chosen_area"></textarea>
         </form>
-        <input  id="FoodQuantity">
-        <button id="Food_add_Btn">添加</button>
-        <textarea id="Food_chosen_area">已选择</textarea>
-    </div>
-    <div id="Food_Result_div" class="Food_Result_div">
+
+
+
+    </form>
+
+
+    <form id="Food_Result_div" class="Food_Result_div">
+        <h1>搭配结果页面</h1>
         <div id="NutriChart_area">
             <div id="Fan_Chart">
 
@@ -116,7 +160,8 @@
             </ul>
 
         </table>
-    </div>
+    </form>
+
 </div>
 </body>
 </html>
