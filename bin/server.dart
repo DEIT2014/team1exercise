@@ -42,7 +42,7 @@ CompareData(jsondata) async{
   username1=user1['Username'];
   password1=user1['Password'];
   var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
-  var data=await pool.query('select username,userid,password from user');
+  var data=await pool.query('select username,password from user ');
 
 
   var confirm=new Map<String,String>();
@@ -51,7 +51,8 @@ CompareData(jsondata) async{
       confirm = {'number':'1'};
     else confirm = {'number':'0'};
   });
-  return (new Response.ok(confirm.toString(),headers: _headers));
+  var ConfirmData = JSON.encode(confirm);
+  return (new Response.ok(ConfirmData,headers: _headers));
 
 }
 

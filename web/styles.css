@@ -30,11 +30,11 @@
     
 }
 .LogIn_div{
-    display: none;
+    /*display: none;*/
     text-align: center;
 }
 .Signup_div{
-    display: none;
+   /* display: none;*/
     text-align: center;
 }
 .plat_Btn{
