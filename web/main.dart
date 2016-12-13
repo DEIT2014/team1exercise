@@ -87,28 +87,26 @@ void LogIn(MouseEvent event) {
   var jsonData = JSON.encode(data);
   HttpRequest request = new HttpRequest();
   //add a event handler that is called when the request is finished
+
+  //post data to the server
+
   request.onReadyStateChange.listen((_) {
     if (request.readyState == HttpRequest.DONE &&
         (request.status == 200 || request.status == 0)) {
       //data saved
       print(request.responseText); //output the response from the server
+      var jsonString = request.responseText;
+      var confirmlist = JSON.decode(jsonString);
+        if(confirmlist['number']=='1')querySelector("#SignUp_Btn2").text = "登录成功";
+        if(confirmlist['number']=='0')querySelector("#SignUp_Btn2").text = "登录失败";
+
     }
   });
-  //post data to the server
   var url = "http://127.0.0.1:8080/login";
   request.open("POST", url, async: false);
   request.send(jsonData);
-  var request1 = HttpRequest.getString("http://127.0.0.1:8080/login").then(
-      onLogIn);
 }
-void onLogIn(responseText) {
-  var jsonString = responseText;
-  var confirmlist = JSON.decode(jsonString);
-  for (var x in confirmlist){
-    if(x["number"]==1)querySelector("#SignUp_Btn2").text = "登录成功";
-    if(x["number"]==0)querySelector("#SignUp_Btn2").text = "登录失败";
-  }
-}
+
 /*void tosignup(RouteEvent e) {
   document.querySelector('#Signup_div').style.display="block";
   document.querySelector('#LogIn_div').style.display="none";
