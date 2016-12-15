@@ -51,8 +51,7 @@ CompareData(jsondata) async{
       confirm = {'number':'1'};
     else confirm = {'number':'0'};
   });
-  var ConfirmData = JSON.encode(confirm);
-  return (new Response.ok(ConfirmData,headers: _headers));
+  return (new Response.ok(confirm.toString(),headers: _headers));
 
 }
 

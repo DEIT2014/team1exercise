@@ -10,12 +10,12 @@ InputElement login_password;//登录界面的密码变量
 InputElement signup_username;//注册界面的用户名变量
 InputElement signup_password;//注册界面的密码变量
 InputElement signup_confirmpw;//注册界面确认密码的变量
-/*var select_element; //用户选择所需元素
+var select_element; //用户选择所需元素
 var select_taboo1;//用户注册页面选择忌口食物
 var select_taboo2;//用户APP主页选择忌口食物
 var select_calory;//用户设定热量控制
 var select_food;//用户选择食物
-var select_quantity;//用户选择食物重量*/
+var select_quantity;//用户选择食物重量
 
 
 var localhost="http://127.0.0.1:8080";
@@ -91,12 +91,10 @@ void LogIn(MouseEvent event) {
   //post data to the server
 
   request.onReadyStateChange.listen((_) {
-    if (request.readyState == HttpRequest.DONE &&
-        (request.status == 200 || request.status == 0)) {
+    if (request.readyState == HttpRequest.DONE && request.status == 200 ) {
       //data saved
-      print(request.responseText); //output the response from the server
       var jsonString = request.responseText;
-      var confirmlist = JSON.decode(jsonString);
+      Map confirmlist = JSON.decode(jsonString);
         if(confirmlist['number']=='1')querySelector("#SignUp_Btn2").text = "登录成功";
         if(confirmlist['number']=='0')querySelector("#SignUp_Btn2").text = "登录失败";
 
@@ -148,6 +146,16 @@ void SignUp(MouseEvent event) {
     else{
       querySelector("#SignUp_Btn2").text = "两次输入密码不同，请重新输入！";
     }
+
+/*    var select_taboo1= document.getElementById('signup_taboo_1');
+    select_taboo1.onclick =function(){
+      if(checkbox.checked){
+      } else{
+        //未选中事件
+      }
+    }*/
+
+
   }
 }
 /*/// 接受用户点击注册页面的注册按钮的响应
