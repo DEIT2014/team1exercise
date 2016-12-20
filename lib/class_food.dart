@@ -2,6 +2,7 @@ class Food{
   //食物属性 返回营养值（每百克）
   num cal;
   num VE;
+  num DGC;//胆固醇
   num pro;//蛋白质
   num Pr;
   int K;
