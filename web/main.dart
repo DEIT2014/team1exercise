@@ -15,11 +15,21 @@ CheckboxInputElement signup_taboo1;//用户注册页面选择忌口食物
 CheckboxInputElement signup_taboo2;
 CheckboxInputElement signup_taboo3;
 CheckboxInputElement signup_taboo4;
-var select_taboo2;//用户APP主页选择忌口食物
-var select_calory;//用户设定热量控制
-var select_food;//用户选择食物
+CheckboxInputElement beef;//用户开始计算模块选择食物
+CheckboxInputElement pork;
+CheckboxInputElement chicken;
+CheckboxInputElement mutton;
+CheckboxInputElement potato;
+CheckboxInputElement tomato;
+CheckboxInputElement bamboo;
+CheckboxInputElement rape;
+CheckboxInputElement rice;
+CheckboxInputElement corn;
+CheckboxInputElement bread;
+CheckboxInputElement egg;
+var calculate_calory;//开始计算热量结果
 var select_quantity;//用户选择食物重量
-
+InputElement chosen_area;//开始计算版块用户已选择食物
 
 var localhost="http://127.0.0.1:8080";
 void main() {
@@ -48,9 +58,8 @@ void main() {
 /*  /// 注册成功界面
   querySelector('#SucSignUp_Btn')
     ..onClick.listen(ReturnSignIn); //返回登录界面按钮*/
-/*
   ///APP主页开始搭配界面
-querySelector('#Select_Element')
+/*querySelector('#Select_Element')
     ..text ='元素'
     ..onClick.listen(Checkbox_Element); //用户选择所需元素
   select_calory = querySelector('#Select_Calory')
@@ -62,20 +71,40 @@ querySelector('#Select_Element')
   querySelector('#ToMatch_Btn')
     ..text = '开始搭配'
     ..onClick.listen(GetFoodMenu) //开始搭配返回食谱
-    ..onClick.listen(GetFanChart);
+    ..onClick.listen(GetFanChart);*/
 
 
 ///APP主页开始计算页面
-  select_food = querySelector('#ChooseFood')
-    ..text ='食物'
-    ..onClick.listen(Checkbox_Food); //用户选择食物
-  select_calory = querySelector('#FoodQuantity')
-    ..text ='重量'
-    ..onClick.listen(Checkbox_Quantity); //用户选择食物重量
-  querySelector('#ToCalculate_Btn')
+  beef = querySelector('#beef');//用户选择食物
+  pork = querySelector('#pork');
+  chicken = querySelector('#chicken');
+  mutton = querySelector('#mutton');
+  potato = querySelector('#potato');
+  tomato = querySelector('#tomato');
+  bamboo = querySelector('#bamboo');
+  rape = querySelector('#rape');
+  rice = querySelector('#rice');
+  corn = querySelector('#corn');
+  bread = querySelector('#bread');
+  egg = querySelector('#egg');
+  chosen_area = querySelector('#chosen_area');
+  select_quantity = querySelector('#Food_Quantity');
+  querySelector('#Calculate_Btn')
     ..text = '开始计算'
-    ..onClick.listen(GetCalNum); //开始计算返回热量总值*/
-
+    ..onClick.listen(GetCalNum); //开始计算返回热量总值
+  querySelector('#Add_Btn')
+    ..text = '添加'
+    ..onClick.listen(AddFood); //开始计算返回热量总值
+}
+/// 用来接受用户点击开始计算版块的添加按钮的响应工作
+/// 参数[event]是鼠标事件....
+void AddFood(MouseEvent event) {
+  var Beef= beef.value;
+  chosen_area.value=Beef;
+}
+/// 用来接受用户点击开始计算按钮以后的响应工作
+/// 参数[event]是鼠标事件....
+void GetCalNum(MouseEvent event) {
 
 }
 /// 用来接受用户点击登录按钮以后的响应工作
@@ -153,30 +182,8 @@ void SignUp(MouseEvent event) {
     else{
       querySelector("#SignUp_Btn2").text = "两次输入密码不同，请重新输入！";
     }
-
-/*    var select_taboo1= document.getElementById('signup_taboo_1');
-    select_taboo1.onclick =function(){
-      if(checkbox.checked){
-      } else{
-        //未选中事件
-      }
-    }*/
-
-
   }
 }
-/*/// 接受用户点击注册页面的注册按钮的响应
-/// 参数[event]是鼠标事件....
-void onSignUp(responseText) {
-  //todo 隐藏登录界面，显示注册界面
-}
-///注册界面中用户选择忌口食物
-void Checkbox_Taboo1(MouseEvent event) {
-  //todo 勾选复选框
-  // todo 将用户忌口食物赋值给变量做约束条件
-}*/
-
-
 
 
 
