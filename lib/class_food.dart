@@ -1,17 +1,18 @@
 class Food{
   //食物属性 返回营养值（每百克）
-  num calory;
+  num cal;
   num VE;
-  num cholesterol;//蛋白质
+  num DGC;//胆固醇
+  num pro;//蛋白质
   num Pr;
   int K;
   int fat;
   int Na;
-  num Carbohydrate;//碳水化合物
+  num CHO;//碳水化合物
   num Ca;
-  num Cellulose;//纤维素
+  num XW;//纤维素
   num Mg;
-  num carotene;//胡萝卜素
+  num BC;//胡萝卜素
   num Fe;
   num VA;
   num Zn;
