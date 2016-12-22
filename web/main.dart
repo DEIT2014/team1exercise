@@ -10,8 +10,11 @@ InputElement login_password;//登录界面的密码变量
 InputElement signup_username;//注册界面的用户名变量
 InputElement signup_password;//注册界面的密码变量
 InputElement signup_confirmpw;//注册界面确认密码的变量
-var select_element; //用户选择所需元素
-var select_taboo1;//用户注册页面选择忌口食物
+CheckboxInputElement select_element; //用户选择所需元素
+CheckboxInputElement signup_taboo1;//用户注册页面选择忌口食物
+CheckboxInputElement signup_taboo2;
+CheckboxInputElement signup_taboo3;
+CheckboxInputElement signup_taboo4;
 var select_taboo2;//用户APP主页选择忌口食物
 var select_calory;//用户设定热量控制
 var select_food;//用户选择食物
@@ -33,12 +36,14 @@ void main() {
 
   /// 注册界面
   signup_username = querySelector('#SignUp_Username'); //输入用户名
-  /*select_taboo1 = querySelector('#SignUp_Taboo1') //选择忌口食物
-    ..text ='忌口食物'
-    ..onClick.listen(Checkbox_Taboo1);*/
   signup_password = querySelector('#SignUp_Password'); //输入密码
   signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
   querySelector("#SignUp_Btn2").onClick.listen(SignUp);//用户注册按钮
+
+  signup_taboo1 = querySelector('#SignUp_Taboo1'); //选择忌口食物
+  signup_taboo2 = querySelector('#SignUp_Taboo2');
+  signup_taboo3 = querySelector('#SignUp_Taboo3');
+  signup_taboo4 = querySelector('#SignUp_Taboo4');
 
 /*  /// 注册成功界面
   querySelector('#SucSignUp_Btn')
@@ -75,35 +80,34 @@ querySelector('#Select_Element')
 }
 /// 用来接受用户点击登录按钮以后的响应工作
 /// 参数[event]是鼠标事件....
+///   //todo 将用户键入的用户名密码与数据库中用户信息表user比较
+//todo 若对比成功，隐藏登录界面，显示App主页
 void LogIn(MouseEvent event) {
-  //todo 将用户键入的用户名密码与数据库中用户信息表user比较
-  //todo 若对比成功，隐藏登录界面，显示App主页
-  var LogInUsername= login_username.value;
-  var LogInPassword=login_password.value;
-  Map data = {
-    "Username":'${LogInUsername}',
-    "Password":'${LogInPassword}'
-  };
-  var jsonData = JSON.encode(data);
-  HttpRequest request = new HttpRequest();
-  //add a event handler that is called when the request is finished
-
-  //post data to the server
-
-  request.onReadyStateChange.listen((_) {
-    if (request.readyState == HttpRequest.DONE && request.status == 200 ) {
-      //data saved
-      var jsonString = request.responseText;
-      Map confirmlist = JSON.decode(jsonString);
-        if(confirmlist['number']=='1')querySelector("#SignUp_Btn2").text = "登录成功";
-        if(confirmlist['number']=='0')querySelector("#SignUp_Btn2").text = "登录失败";
-
-    }
-  });
-  var url = "http://127.0.0.1:8080/login";
-  request.open("POST", url, async: false);
-  request.send(jsonData);
+  var request = HttpRequest.getString("http://127.0.0.1:8080/login").then(
+      onLogIn);
 }
+void onLogIn(responseText) {
+  var jsonString = responseText;
+  var userinfo = JSON.decode(jsonString);
+  var userinfolist = userinfo["Userinfo"];
+  int a = 0;
+  for (var x in userinfolist) {
+    if (x["UserName"] == login_username.value) {
+      if (x["Password"] == login_password.value) {
+
+          a = 1;
+
+        }
+      }
+    }
+  if (a == 0) {
+    querySelector("#SignUp_Btn1").text = "登录失败！";
+  }
+  if (a == 1) {
+    querySelector("#SignUp_Btn1").text = "登陆成功！";
+  }
+}
+
 
 /*void tosignup(RouteEvent e) {
   document.querySelector('#Signup_div').style.display="block";
@@ -115,6 +119,7 @@ void SignUp(MouseEvent event) {
   var SignUpUsername=signup_username.value;
   var SignUpPassword=signup_password.value;
   var SignUpConfirpw=signup_confirmpw.value;
+  var SignUp_Taboo1= signup_taboo1.value;
   if(SignUpUsername==''||  SignUpPassword=='' || SignUpConfirpw=='')
   {
     querySelector("#SignUp_Btn2").text="用户名和密码不能为空！";
@@ -124,7 +129,8 @@ void SignUp(MouseEvent event) {
     if (signup_password.value == signup_confirmpw.value) {
       Map data = {
         "Username":'${SignUpUsername}',
-        "Password":'${SignUpPassword}'
+        "Password":'${SignUpPassword}',
+         "Taboo1"  : '${SignUp_Taboo1}'
       };
       var jsonData = JSON.encode(data);
       HttpRequest request = new HttpRequest();
