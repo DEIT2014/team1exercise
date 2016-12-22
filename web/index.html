@@ -104,35 +104,32 @@
 
     <form id="ToCalculate_div" class="ToCalculate_div">
         <h3>计算模块</h3>
-        <button id="ToCalculate_Btn">开始计算</button>
-        <input id="ChooseFood">
+        <button id="Calculate_Btn">开始计算</button>
+        <input id="Calculate_Result">卡路里
         <form >
-            <p> 鸡蛋<input type="checkbox"  id="egg" >
-                牛肉<input type="checkbox" id="beaf">
-                猪肉<input type="checkbox" id="pork">
-                鸡肉<input type="checkbox" id="chicken">
-                羊肉<input type="checkbox" id="mutton">
+            <p>
+                牛肉<input type="checkbox" id="beaf" value="牛肉">
+                猪肉<input type="checkbox" id="pork" value="猪肉">
+                鸡肉<input type="checkbox" id="chicken" value="鸡肉">
+                羊肉<input type="checkbox" id="mutton" value="羊肉">
                 <br>
-                山药<input type="checkbox" id="yam">
-                土豆<input type="checkbox"id="potato">
-                番茄<input type="checkbox"id="tomato">
-                竹笋<input type="checkbox"id="bamboo">
-                油菜<input type="checkbox"id="rape">
+                土豆<input type="checkbox" id="potato" value="土豆">
+                番茄<input type="checkbox" id="tomato" value="番茄">
+                竹笋<input type="checkbox" id="bamboo" value="竹笋">
+                油菜<input type="checkbox" id="rape" value="油菜">
                 <br>
-                大米<input type="checkbox" id="rice">
-                糯米<input type="checkbox" id="sticky">
-                玉米<input type="checkbox" id="corn">
-                馒头<input type="checkbox" id="bread">
-                燕麦<input type="checkbox" id="oat">
+                大米<input type="checkbox" id="rice" value="大米">
+                玉米<input type="checkbox" id="corn" value="玉米">
+                馒头<input type="checkbox" id="bread" value="馒头">
+                鸡蛋<input type="checkbox" id="egg" value="鸡蛋">
             </p>
-            食物数量<input  id="Food_Quantity">克
-
+            食物数量<input  type="text" id="Food_Quantity">克
+            <button id="Add_Btn">添加</button>
             <br>
-            <button id="Food_add_Btn">添加</button>
             <br>
             <label>已选择</label>
 
-            <textarea id="Food_chosen_area"></textarea>
+            <textarea id="chosen_area"></textarea>
         </form>
 
 
