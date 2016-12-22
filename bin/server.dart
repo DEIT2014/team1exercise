@@ -25,35 +25,27 @@ void main() {
 
 
     ;*/
-    ..post('/login', ToLogIn)
+    ..get('/login', ToLogIn)
     ..post('/signup', ToSignUp);
   io.serve(myRouter.handler, '127.0.0.1', 8080);
+
 }
 
 //从数据库取出数据（用户登录时）
 ToLogIn(request) async {
-  request.readAsString().then(CompareData);
-  return (new Response.ok('success!',headers: _headers));
-}
-CompareData(jsondata) async{
-  var  username1;
-  var password1;
-  Map user1=JSON.decode(jsondata);
-  username1=user1['Username'];
-  password1=user1['Password'];
-  var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
-  var data=await pool.query('select username,password from user ');
-
-
-  var confirm=new Map<String,String>();
-  await data.forEach((row) {
-    if ("${row.username}" == username1 && "${row.password}" == password1)
-      confirm = {'number':'1'};
-    else confirm = {'number':'0'};
+  var singledata=new Map<String,String>();//存放单个用户数据
+  var userdata=new List();//存放所有用户的数据
+  var finaluserdata=new Map<String,String>();//存放最终的用户数据
+  var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
+  var data=await pool.query('select username,password,signup_taboo from user');
+  //下面这个语句比较慢，一定要等它
+  await data.forEach((row){
+    singledata={'"UserName"':'"${row.username}"','"Password"':'"${row.password}"'};//按照这个格式存放单条数据
+    userdata.add(singledata);//将该数据加入数组中
   });
-  var ConfirmData = JSON.encode(confirm);
-  return (new Response.ok(ConfirmData,headers: _headers));
-
+  //将用户数据存入数组中
+  finaluserdata={'"Userinfo"':userdata};
+  return (new Response.ok(finaluserdata.toString(),headers: _headers));
 }
 
 ToSignUp(request)async{
@@ -64,14 +56,16 @@ ToSignUp(request)async{
 }
 InsertData(data) async{
   var  newusername;
-  var newpassword;
+  var  newpassword;
+  var  taboo1;
   Map newuser=JSON.decode(data);
   newusername=newuser['Username'];
   newpassword=newuser['Password'];
+  taboo1=newuser['Taboo1'];
   //todo 将数据存入数据库
   var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
-  var query=await pool.prepare('insert into user (username,  password) values (?, ?)');
-  var result=await query.execute([newusername,newpassword]);
+  var query=await pool.prepare('insert into user (username,password,signup_taboo) values (?, ?,?)');
+  var result=await query.execute([newusername,newpassword,taboo1]);
 
 }
 
