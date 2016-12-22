@@ -57,15 +57,15 @@ ToSignUp(request)async{
 InsertData(data) async{
   var  newusername;
   var  newpassword;
-  var  taboo1;
+  var  taboo;
   Map newuser=JSON.decode(data);
   newusername=newuser['Username'];
   newpassword=newuser['Password'];
-  taboo1=newuser['Taboo1'];
+  taboo=newuser['Taboo'];
   //todo 将数据存入数据库
   var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
   var query=await pool.prepare('insert into user (username,password,signup_taboo) values (?, ?,?)');
-  var result=await query.execute([newusername,newpassword,taboo1]);
+  var result=await query.execute([newusername,newpassword,taboo]);
 
 }
 

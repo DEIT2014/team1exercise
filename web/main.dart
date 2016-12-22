@@ -94,9 +94,7 @@ void onLogIn(responseText) {
   for (var x in userinfolist) {
     if (x["UserName"] == login_username.value) {
       if (x["Password"] == login_password.value) {
-
           a = 1;
-
         }
       }
     }
@@ -120,6 +118,9 @@ void SignUp(MouseEvent event) {
   var SignUpPassword=signup_password.value;
   var SignUpConfirpw=signup_confirmpw.value;
   var SignUp_Taboo1= signup_taboo1.value;
+  var SignUp_Taboo2= signup_taboo2.value;
+  var SignUp_Taboo3= signup_taboo3.value;
+  var SignUp_Taboo4= signup_taboo4.value;
   if(SignUpUsername==''||  SignUpPassword=='' || SignUpConfirpw=='')
   {
     querySelector("#SignUp_Btn2").text="用户名和密码不能为空！";
@@ -130,7 +131,7 @@ void SignUp(MouseEvent event) {
       Map data = {
         "Username":'${SignUpUsername}',
         "Password":'${SignUpPassword}',
-         "Taboo1"  : '${SignUp_Taboo1}'
+         "Taboo"  : '${SignUp_Taboo1},${SignUp_Taboo2},${SignUp_Taboo3},${SignUp_Taboo4}'
       };
       var jsonData = JSON.encode(data);
       HttpRequest request = new HttpRequest();
