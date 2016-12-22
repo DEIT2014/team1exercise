@@ -40,10 +40,10 @@ void main() {
   signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
   querySelector("#SignUp_Btn2").onClick.listen(SignUp);//用户注册按钮
 
-  signup_taboo1 = querySelector('#SignUp_Taboo1'); //选择忌口食物
-  signup_taboo2 = querySelector('#SignUp_Taboo2');
-  signup_taboo3 = querySelector('#SignUp_Taboo3');
-  signup_taboo4 = querySelector('#SignUp_Taboo4');
+  signup_taboo1 = querySelector('#signup_taboo1'); //选择忌口食物
+  signup_taboo2 = querySelector('#signup_taboo2');
+  signup_taboo3 = querySelector('#signup_taboo3');
+  signup_taboo4 = querySelector('#signup_taboo4');
 
 /*  /// 注册成功界面
   querySelector('#SucSignUp_Btn')
