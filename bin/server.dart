@@ -33,7 +33,6 @@ void main() {
 ToCalculate(request) async {
   var singledata=new Map<String,String>();//存放单个用户数据
   var alldata=new List();//存放所有用户的数据
-  var finaldata=new Map<String,String>();//存放最终的用户数据
   var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
   var data=await pool.query('select foodname,calory from food');
   //下面这个语句比较慢，一定要等它
@@ -42,8 +41,8 @@ ToCalculate(request) async {
     alldata.add(singledata);//将该数据加入数组中
   });
   //将用户数据存入数组中
-  finaldata={'"Food"':alldata};
-  return (new Response.ok(finaldata.toString(),headers: _headers));
+  var finaldata=JSON.encode(alldata);
+  return (new Response.ok(finaldata ,headers: _headers));
 }
 //从数据库取出数据（用户登录时）
 ToLogIn(request) async {

@@ -7,6 +7,7 @@ import 'package:route_hierarchical/client.dart';
 import 'dart:async';
 InputElement login_username;//登录界面的用户名变量
 InputElement login_password;//登录界面的密码变量
+
 InputElement signup_username;//注册界面的用户名变量
 InputElement signup_password;//注册界面的密码变量
 InputElement signup_confirmpw;//注册界面确认密码的变量
@@ -15,6 +16,7 @@ CheckboxInputElement signup_taboo1;//用户注册页面选择忌口食物
 CheckboxInputElement signup_taboo2;
 CheckboxInputElement signup_taboo3;
 CheckboxInputElement signup_taboo4;
+
 CheckboxInputElement beef;//用户开始计算模块选择食物
 CheckboxInputElement pork;
 CheckboxInputElement chicken;
@@ -28,8 +30,9 @@ CheckboxInputElement corn;
 CheckboxInputElement bread;
 CheckboxInputElement egg;
 TextAreaElement chosen_area;//开始计算版块选择食物区域
+InputElement quantity;//用户选择食物重量
 var calculate_calory;//开始计算热量结果
-var select_quantity;//用户选择食物重量
+
 
 
 var localhost="http://127.0.0.1:8080";
@@ -89,7 +92,7 @@ void main() {
   bread = querySelector('#bread');
   egg = querySelector('#egg');
   chosen_area= querySelector('#Chosen_Area');//开始计算版块选择食物区域
-  select_quantity = querySelector('#Food_Quantity');
+  quantity = querySelector('#Quantity');
   querySelector('#Calculate_Btn').onClick.listen(GetCalNum); //开始计算返回热量总值
   querySelector('#Add_Btn').onClick.listen(AddFood); //开始计算返回热量总值
 }
@@ -97,9 +100,9 @@ void main() {
 /// 参数[event]是鼠标事件....
 void AddFood(MouseEvent event) {
   var Beef=beef.value;
-  var chosen_area=document.getElementById('#Chosen_Area');
-  chosen_area.value=Beef;
-  querySelector('#Chosen_Area').text=Beef.toString();
+  var Quantity=quantity.value;
+/*  var chosen_area=document.getElementById('#Chosen_Area');*/
+  chosen_area.text=Beef.toString()+Quantity.toString()+"克";
 }
 /// 用来接受用户点击开始计算按钮以后的响应工作
 /// 参数[event]是鼠标事件....
@@ -109,14 +112,13 @@ void GetCalNum(MouseEvent event) {
 }
 void toCalculate(responseText) {
   var jsonString = responseText;
-  var food = JSON.decode(jsonString);
-  var fooddata = food["Food"];
+  var food=JSON.decode(jsonString);
   int number = 0;
-  for (var x in fooddata) {
+  for (var x in food) {
     if (x["Foodname"] == beef.value) {
-      number += (x["Calory"]).hashcode;
+      number += int.parse(x["Calory"]);
       if (x["Foodname"] == pork.value) {
-        number += x["Calory"].hashCode;
+        number += int.parse(x["Calory"]);
       }
     }
   }
@@ -147,7 +149,7 @@ void onLogIn(responseText) {
     querySelector("#SignUp_Btn1").text = "登录失败！";
   }
   if (a == 1) {
-    querySelector("#SignUp_Btn1").text = "登陆成功！";
+    querySelector("#SignUp_Btn1").text = "登录成功！";
   }
 }
 
