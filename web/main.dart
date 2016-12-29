@@ -31,7 +31,7 @@ CheckboxInputElement bread;
 CheckboxInputElement egg;
 TextAreaElement chosen_area;//开始计算版块选择食物区域
 InputElement quantity;//用户选择食物重量
-var calculate_calory;//开始计算热量结果
+TextAreaElement calculate_result;//开始计算热量结果
 
 
 
@@ -92,6 +92,7 @@ void main() {
   bread = querySelector('#bread');
   egg = querySelector('#egg');
   chosen_area= querySelector('#Chosen_Area');//开始计算版块选择食物区域
+  calculate_result=querySelector('#Calculate_Result');
   quantity = querySelector('#Quantity');
   querySelector('#Calculate_Btn').onClick.listen(GetCalNum); //开始计算返回热量总值
   querySelector('#Add_Btn').onClick.listen(AddFood); //开始计算返回热量总值
@@ -100,9 +101,14 @@ void main() {
 /// 参数[event]是鼠标事件....
 void AddFood(MouseEvent event) {
   var Beef=beef.value;
+  var Pork=pork.value;
   var Quantity=quantity.value;
 /*  var chosen_area=document.getElementById('#Chosen_Area');*/
-  chosen_area.text=Beef.toString()+Quantity.toString()+"克";
+  chosen_area.appendText(Beef.toString()+Quantity.toString()+"克"+"\n");
+  chosen_area.appendText(Pork.toString()+Quantity.toString()+"克"+"\n");
+  beef.checked=false;
+  pork.checked=false;
+  quantity.value="";
 }
 /// 用来接受用户点击开始计算按钮以后的响应工作
 /// 参数[event]是鼠标事件....
@@ -111,18 +117,18 @@ void GetCalNum(MouseEvent event) {
       toCalculate);
 }
 void toCalculate(responseText) {
-  var jsonString = responseText;
-  var food=JSON.decode(jsonString);
+  var food=JSON.decode(responseText);
+  var Beef=beef.value;
   int number = 0;
   for (var x in food) {
-    if (x["Foodname"] == beef.value) {
-      number += int.parse(x["Calory"]);
-      if (x["Foodname"] == pork.value) {
+    if (x["Foodname"] == Beef) {
+      number =number++;
+      /*if (x["Foodname"] == pork.value) {
         number += int.parse(x["Calory"]);
-      }
+      }*/
     }
   }
-    querySelector("#Add_Btn").text ="结果";
+  querySelector('#Add_Btn').text=number.toString();
 
 }
 /// 用来接受用户点击登录按钮以后的响应工作
