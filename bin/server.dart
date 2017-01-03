@@ -37,7 +37,7 @@ ToCalculate(request) async {
   var data=await pool.query('select foodname,calory from food');
   //下面这个语句比较慢，一定要等它
   await data.forEach((row){
-    singledata={'"Foodname"':'"${row.foodname}"','"Calory"':'"${row.calory}"'};//按照这个格式存放单条数据
+    singledata={'Foodname':'${row.foodname}','Calory':'${row.calory}'};//按照这个格式存放单条数据
     alldata.add(singledata);//将该数据加入数组中
   });
   //将用户数据存入数组中

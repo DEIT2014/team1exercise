@@ -1,23 +1,32 @@
 // Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
+
 // is governed by a BSD-style license that can be found in the LICENSE file.
 import 'dart:html';
 import 'dart:core';
 import 'dart:convert' show JSON;
 import 'package:route_hierarchical/client.dart';
 import 'dart:async';
-InputElement login_username;//登录界面的用户名变量
-InputElement login_password;//登录界面的密码变量
 
-InputElement signup_username;//注册界面的用户名变量
-InputElement signup_password;//注册界面的密码变量
-InputElement signup_confirmpw;//注册界面确认密码的变量
+InputElement login_username; //登录界面的用户名变量
+
+InputElement login_password; //登录界面的密码变量
+
+InputElement signup_username; //注册界面的用户名变量
+
+InputElement signup_password; //注册界面的密码变量
+
+InputElement signup_confirmpw; //注册界面确认密码的变量
+
 CheckboxInputElement select_element; //用户选择所需元素
-CheckboxInputElement signup_taboo1;//用户注册页面选择忌口食物
+
+CheckboxInputElement signup_taboo1; //用户注册页面选择忌口食物
+
 CheckboxInputElement signup_taboo2;
 CheckboxInputElement signup_taboo3;
 CheckboxInputElement signup_taboo4;
 
-CheckboxInputElement beef;//用户开始计算模块选择食物
+CheckboxInputElement beef; //用户开始计算模块选择食物
+
 CheckboxInputElement pork;
 CheckboxInputElement chicken;
 CheckboxInputElement mutton;
@@ -29,13 +38,29 @@ CheckboxInputElement rice;
 CheckboxInputElement corn;
 CheckboxInputElement bread;
 CheckboxInputElement egg;
-TextAreaElement chosen_area;//开始计算版块选择食物区域
-InputElement quantity;//用户选择食物重量
-TextAreaElement calculate_result;//开始计算热量结果
+TextAreaElement chosen_area; //开始计算版块选择食物区域
 
+InputElement quantity; //用户选择食物重量
 
+TextAreaElement calculate_result; //开始计算热量结果
 
-var localhost="http://127.0.0.1:8080";
+var Beef_Num;
+var Pork_Num;
+var Chicken_Num;
+var Mutton_Num;
+var Potato_Num;
+var Tomato_Num;
+var Bamboo_Num;
+var Rape_Num;
+var Rice_Num;
+var Corn_Num;
+var Bread_Num;
+var Egg_Num;
+
+var Beef_Chosen;
+var Pork_Chosen;
+var localhost = "http://127.0.0.1:8080";
+
 void main() {
   /// 登录界面
   login_username = querySelector('#LogIn_Username'); //输入用户名
@@ -52,7 +77,7 @@ void main() {
   signup_username = querySelector('#SignUp_Username'); //输入用户名
   signup_password = querySelector('#SignUp_Password'); //输入密码
   signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
-  querySelector("#SignUp_Btn2").onClick.listen(SignUp);//用户注册按钮
+  querySelector("#SignUp_Btn2").onClick.listen(SignUp); //用户注册按钮
 
   signup_taboo1 = querySelector('#signup_taboo1'); //选择忌口食物
   signup_taboo2 = querySelector('#signup_taboo2');
@@ -62,6 +87,7 @@ void main() {
 /*  /// 注册成功界面
   querySelector('#SucSignUp_Btn')
     ..onClick.listen(ReturnSignIn); //返回登录界面按钮*/
+
   ///APP主页开始搭配界面
 /*querySelector('#Select_Element')
     ..text ='元素'
@@ -78,8 +104,8 @@ void main() {
     ..onClick.listen(GetFanChart);*/
 
 
-///APP主页开始计算页面
-  beef = querySelector('#beef');//用户选择食物
+  ///APP主页开始计算页面
+  beef = querySelector('#beef'); //用户选择食物
   pork = querySelector('#pork');
   chicken = querySelector('#chicken');
   mutton = querySelector('#mutton');
@@ -91,46 +117,122 @@ void main() {
   corn = querySelector('#corn');
   bread = querySelector('#bread');
   egg = querySelector('#egg');
-  chosen_area= querySelector('#Chosen_Area');//开始计算版块选择食物区域
-  calculate_result=querySelector('#Calculate_Result');
+  chosen_area = querySelector('#Chosen_Area'); //开始计算版块选择食物区域
+  calculate_result = querySelector('#Calculate_Result');
   quantity = querySelector('#Quantity');
   querySelector('#Calculate_Btn').onClick.listen(GetCalNum); //开始计算返回热量总值
   querySelector('#Add_Btn').onClick.listen(AddFood); //开始计算返回热量总值
 }
+
 /// 用来接受用户点击开始计算版块的添加按钮的响应工作
 /// 参数[event]是鼠标事件....
 void AddFood(MouseEvent event) {
-  var Beef=beef.value;
-  var Pork=pork.value;
-  var Quantity=quantity.value;
-/*  var chosen_area=document.getElementById('#Chosen_Area');*/
-  chosen_area.appendText(Beef.toString()+Quantity.toString()+"克"+"\n");
-  chosen_area.appendText(Pork.toString()+Quantity.toString()+"克"+"\n");
-  beef.checked=false;
-  pork.checked=false;
-  quantity.value="";
+  var Beef = beef.value;
+  var Pork = pork.value;
+  var Chicken = chicken.value;
+  var Mutton = mutton.value;
+  var Potato = potato.value;
+  var Tomato = tomato.value;
+  var Bamboo = bamboo.value;
+  var Rape = rape.value;
+  var Rice = rice.value;
+  var Corn = corn.value;
+  var Bread = bread.value;
+  var Egg = egg.value;
+  var Quantity = quantity.value;
+  if (beef.checked) {
+    chosen_area.appendText(Beef.toString() + Quantity.toString() + "克" + "\n");
+    //Beef_Num = Quantity;
+    int bn=int.parse(Quantity);
+    Beef_Chosen = Beef;
+  }
+  if (pork.checked) {
+    chosen_area.appendText(Pork.toString() + Quantity.toString() + "克" + "\n");
+    Pork_Num = Quantity;
+    Pork_Chosen = Pork;
+  }
+  if (chicken.checked) {
+    chosen_area.appendText(
+        Chicken.toString() + Quantity.toString() + "克" + "\n");
+    Chicken = Quantity;
+  }
+  if (mutton.checked) {
+    chosen_area.appendText(
+        Mutton.toString() + Quantity.toString() + "克" + "\n");
+    Mutton = Quantity;
+  }
+  if (potato.checked) {
+    chosen_area.appendText(
+        Potato.toString() + Quantity.toString() + "克" + "\n");
+    Potato = Quantity;
+  }
+  if (tomato.checked) {
+    chosen_area.appendText(
+        Tomato.toString() + Quantity.toString() + "克" + "\n");
+    Tomato = Quantity;
+  }
+  if (bamboo.checked) {
+    chosen_area.appendText(
+        Bamboo.toString() + Quantity.toString() + "克" + "\n");
+    Bamboo = Quantity;
+  }
+  if (rape.checked) {
+    chosen_area.appendText(Rape.toString() + Quantity.toString() + "克" + "\n");
+    Rape = Quantity;
+  }
+  if (rice.checked) {
+    chosen_area.appendText(Rice.toString() + Quantity.toString() + "克" + "\n");
+    Rice = Quantity;
+  }
+  if (corn.checked) {
+    chosen_area.appendText(Corn.toString() + Quantity.toString() + "克" + "\n");
+    Corn = Quantity;
+  }
+  if (bread.checked) {
+    chosen_area.appendText(Bread.toString() + Quantity.toString() + "克" + "\n");
+    Bread = Quantity;
+  }
+  if (egg.checked) {
+    chosen_area.appendText(Egg.toString() + Quantity.toString() + "克" + "\n");
+    Egg = Quantity;
+  }
+  beef.checked = false;
+  pork.checked = false;
+  chicken.checked = false;
+  mutton.checked = false;
+  potato.checked = false;
+  tomato.checked = false;
+  bamboo.checked = false;
+  rape.checked = false;
+  rice.checked = false;
+  corn.checked = false;
+  bread.checked = false;
+  egg.checked = false;
+
+  quantity.value = "";
 }
+
 /// 用来接受用户点击开始计算按钮以后的响应工作
 /// 参数[event]是鼠标事件....
 void GetCalNum(MouseEvent event) {
   var request = HttpRequest.getString("http://127.0.0.1:8080/calculate").then(
       toCalculate);
 }
+
 void toCalculate(responseText) {
-  var food=JSON.decode(responseText);
-  var Beef=beef.value;
+  var food = JSON.decode(responseText);
   int number = 0;
   for (var x in food) {
-    if (x["Foodname"] == Beef) {
-      number =number++;
-      /*if (x["Foodname"] == pork.value) {
-        number += int.parse(x["Calory"]);
-      }*/
+    if (x['Foodname'] == Beef_Chosen) {
+      number += int.parse(x['Calory']) * int.parse(Beef_Num);
+    }
+    if (x['Foodname'] == Pork_Chosen) {
+      number += int.parse(x['Calory']) * int.parse(Pork_Num);
     }
   }
-  querySelector('#Add_Btn').text=number.toString();
-
+  querySelector('#Add_Btn').text = number.toString();
 }
+
 /// 用来接受用户点击登录按钮以后的响应工作
 /// 参数[event]是鼠标事件....
 ///   //todo 将用户键入的用户名密码与数据库中用户信息表user比较
@@ -139,6 +241,7 @@ void LogIn(MouseEvent event) {
   var request = HttpRequest.getString("http://127.0.0.1:8080/login").then(
       onLogIn);
 }
+
 void onLogIn(responseText) {
   var jsonString = responseText;
   var userinfo = JSON.decode(jsonString);
@@ -147,10 +250,10 @@ void onLogIn(responseText) {
   for (var x in userinfolist) {
     if (x["UserName"] == login_username.value) {
       if (x["Password"] == login_password.value) {
-          a = 1;
-        }
+        a = 1;
       }
     }
+  }
   if (a == 0) {
     querySelector("#SignUp_Btn1").text = "登录失败！";
   }
@@ -167,24 +270,23 @@ void onLogIn(responseText) {
 }*/
 void SignUp(MouseEvent event) {
   //todo 将用户键入的用户名密码加入数据库
-  var SignUpUsername=signup_username.value;
-  var SignUpPassword=signup_password.value;
-  var SignUpConfirpw=signup_confirmpw.value;
-  var SignUp_Taboo1= signup_taboo1.value;
-  var SignUp_Taboo2= signup_taboo2.value;
-  var SignUp_Taboo3= signup_taboo3.value;
-  var SignUp_Taboo4= signup_taboo4.value;
-  if(SignUpUsername==''||  SignUpPassword=='' || SignUpConfirpw=='')
-  {
-    querySelector("#SignUp_Btn2").text="用户名和密码不能为空！";
+  var SignUpUsername = signup_username.value;
+  var SignUpPassword = signup_password.value;
+  var SignUpConfirpw = signup_confirmpw.value;
+  var SignUp_Taboo1 = signup_taboo1.value;
+  var SignUp_Taboo2 = signup_taboo2.value;
+  var SignUp_Taboo3 = signup_taboo3.value;
+  var SignUp_Taboo4 = signup_taboo4.value;
+  if (SignUpUsername == '' || SignUpPassword == '' || SignUpConfirpw == '') {
+    querySelector("#SignUp_Btn2").text = "用户名和密码不能为空！";
   }
   //if(SignUpUserName!=null && SignUpPassword!=null && SignUpConPassword!=null)
-  else{
+  else {
     if (signup_password.value == signup_confirmpw.value) {
       Map data = {
         "Username":'${SignUpUsername}',
         "Password":'${SignUpPassword}',
-         "Taboo"  : '${SignUp_Taboo1},${SignUp_Taboo2},${SignUp_Taboo3},${SignUp_Taboo4}'
+        "Taboo" : '${SignUp_Taboo1},${SignUp_Taboo2},${SignUp_Taboo3},${SignUp_Taboo4}'
       };
       var jsonData = JSON.encode(data);
       HttpRequest request = new HttpRequest();
@@ -203,22 +305,11 @@ void SignUp(MouseEvent event) {
       querySelector("#SignUp_Btn2").text = "注册成功！";
       //显示注册成功界面
     }
-    else{
+    else {
       querySelector("#SignUp_Btn2").text = "两次输入密码不同，请重新输入！";
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*
