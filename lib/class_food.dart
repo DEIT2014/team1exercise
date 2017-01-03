@@ -26,15 +26,19 @@ class Food{
 
   /*
   * 查找某个元素最多的一种食物
-  * @param String
+  * @param List<String>
+  * @param num
   * @return map
   * */
-  find(String ele) async{
-    var sql = 'select * from food ' + 'order by ' + ele + ' desc limit 10';
-    var data = await pool.query(sql);
-    data.forEach((row) {
-      print('Name: ${row[0]}, cal: ${row[1]}');
-    });
+  find( List<String> elements ,num cal ) async{
+    Map data;
+
+    for (int i = 0; i< elements.length; i++) {
+      String ele = elements[i];
+      var sql = 'select food_name, cal from food ' + 'order by ' + ele + ' desc limit 10';
+      data[ele] = await pool.query(sql);
+    }
+
   }
 
 
