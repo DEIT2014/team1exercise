@@ -142,12 +142,12 @@ void AddFood(MouseEvent event) {
   var Quantity = quantity.value;
   if (beef.checked) {
     chosen_area.appendText(Beef.toString() + Quantity.toString() + "克" + "\n");
-    //Beef_Num = Quantity;
-    int bn=int.parse(Quantity);
+    Beef_Num =100;
     Beef_Chosen = Beef;
   }
   if (pork.checked) {
     chosen_area.appendText(Pork.toString() + Quantity.toString() + "克" + "\n");
+    Pork_Num =100;
     Pork_Num = Quantity;
     Pork_Chosen = Pork;
   }
@@ -224,10 +224,10 @@ void toCalculate(responseText) {
   int number = 0;
   for (var x in food) {
     if (x['Foodname'] == Beef_Chosen) {
-      number += int.parse(x['Calory']) * int.parse(Beef_Num);
+      number += int.parse(x['Calory']) *Beef_Num;
     }
     if (x['Foodname'] == Pork_Chosen) {
-      number += int.parse(x['Calory']) * int.parse(Pork_Num);
+      number += int.parse(x['Calory']) * Pork_Num;
     }
   }
   querySelector('#Add_Btn').text = number.toString();
