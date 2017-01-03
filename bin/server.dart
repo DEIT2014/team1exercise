@@ -15,22 +15,35 @@ final _headers={"Access-Control-Allow-Origin":"*",
 
 void main() {
   var myRouter = router()
-/*    ..get('/', ToHomePage)*/
 
 
 /*    ..get('/match', ToMatchPage)
-    ..get('/calculate', ToCalculatePage)
+
     ..get('/fanchart', FanChart)
     ..get('/tablemenu', TableMenu)
 
 
     ;*/
     ..get('/login', ToLogIn)
-    ..post('/signup', ToSignUp);
+    ..post('/signup', ToSignUp)
+    ..get('/calculate',ToCalculate);
   io.serve(myRouter.handler, '127.0.0.1', 8080);
 
 }
-
+ToCalculate(request) async {
+  var singledata=new Map<String,String>();//存放单个用户数据
+  var alldata=new List();//存放所有用户的数据
+  var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
+  var data=await pool.query('select foodname,calory from food');
+  //下面这个语句比较慢，一定要等它
+  await data.forEach((row){
+    singledata={'"Foodname"':'"${row.foodname}"','"Calory"':'"${row.calory}"'};//按照这个格式存放单条数据
+    alldata.add(singledata);//将该数据加入数组中
+  });
+  //将用户数据存入数组中
+  var finaldata=JSON.encode(alldata);
+  return (new Response.ok(finaldata ,headers: _headers));
+}
 //从数据库取出数据（用户登录时）
 ToLogIn(request) async {
   var singledata=new Map<String,String>();//存放单个用户数据
