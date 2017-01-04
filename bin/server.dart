@@ -48,6 +48,7 @@ ToCalculate(request) async {
 ToLogIn(request) async {
   var singledata=new Map<String,String>();//存放单个用户数据
   var userdata=new List();//存放所有用户的数据
+  var finaluserdata=new Map<String,String>();//存放最终的用户数据
   var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
   var data=await pool.query('select username,password,signup_taboo from user');
   //下面这个语句比较慢，一定要等它
@@ -55,14 +56,16 @@ ToLogIn(request) async {
     singledata={'"UserName"':'"${row.username}"','"Password"':'"${row.password}"'};//按照这个格式存放单条数据
     userdata.add(singledata);//将该数据加入数组中
   });
-  var finaldata=JSON.encode(userdata);
-  return (new Response.ok(finaldata.toString(),headers: _headers));
+  //将用户数据存入数组中
+  finaluserdata={'"Userinfo"':userdata};
+  return (new Response.ok(finaluserdata.toString(),headers: _headers));
 }
+
 
 ToSignUp(request)async{
   //注册数据写入数据库
   request.readAsString().then(InsertData);
-  return (new Response.ok('success!',headers: _headers));
+  return (new Response.ok('success',headers: _headers));
 
 }
 InsertData(data) async{
