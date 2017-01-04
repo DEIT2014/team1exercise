@@ -8,17 +8,13 @@ import 'package:route_hierarchical/client.dart';
 import 'dart:async';
 
 InputElement login_username; //登录界面的用户名变量
-
 InputElement login_password; //登录界面的密码变量
 
 InputElement signup_username; //注册界面的用户名变量
-
 InputElement signup_password; //注册界面的密码变量
-
 InputElement signup_confirmpw; //注册界面确认密码的变量
 
 CheckboxInputElement select_element; //用户选择所需元素
-
 CheckboxInputElement signup_taboo1; //用户注册页面选择忌口食物
 
 CheckboxInputElement signup_taboo2;
@@ -26,7 +22,6 @@ CheckboxInputElement signup_taboo3;
 CheckboxInputElement signup_taboo4;
 
 CheckboxInputElement beef; //用户开始计算模块选择食物
-
 CheckboxInputElement pork;
 CheckboxInputElement chicken;
 CheckboxInputElement mutton;
@@ -63,14 +58,26 @@ var localhost = "http://127.0.0.1:8080";
 
 void main() {
   /// 登录界面
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Signup_div')
+      .style
+      .display = "none";
+  document
+      .querySelector('#Homepage_div')
+      .style
+      .display = "none";
   login_username = querySelector('#LogIn_Username'); //输入用户名
   login_password = querySelector('#LogIn_Password'); //输入密码
-/*  var router = new Router(useFragment: true);
+  var router = new Router(useFragment: true);
   router.root
-    ..addRoute(name: 'tosignup', path: '/tosignup', enter: ToSignUp);
+    ..addRoute(name: 'tosignup', path: '/signup', enter: ToSignUp)
     ..addRoute(name:'home',path:'/',enter: (_) => null);
   querySelector("#SignUp_Btn1").attributes['href'] = router.url('tosignup');
-  router.listen();//显示用户注册界面*/
+  router.listen();//显示用户注册界面
   querySelector("#LogIn_Btn1").onClick.listen(LogIn);
 
   /// 注册界面
@@ -84,9 +91,6 @@ void main() {
   signup_taboo3 = querySelector('#signup_taboo3');
   signup_taboo4 = querySelector('#signup_taboo4');
 
-/*  /// 注册成功界面
-  querySelector('#SucSignUp_Btn')
-    ..onClick.listen(ReturnSignIn); //返回登录界面按钮*/
 
   ///APP主页开始搭配界面
 /*querySelector('#Select_Element')
@@ -102,7 +106,6 @@ void main() {
     ..text = '开始搭配'
     ..onClick.listen(GetFoodMenu) //开始搭配返回食谱
     ..onClick.listen(GetFanChart);*/
-
 
   ///APP主页开始计算页面
   beef = querySelector('#beef'); //用户选择食物
@@ -232,6 +235,36 @@ void toCalculate(responseText) {
   }
   querySelector('#Add_Btn').text = number.toString();
 }
+void ToSignUp(RouteEvent e) {
+  document
+      .querySelector('#Signup_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "none";
+}
+void LogInOk(RouteEvent e) {
+  document
+      .querySelector('#Homepage_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "none";
+}
+void SignUpOk(RouteEvent e) {
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Signup_div')
+      .style
+      .display = "none";
+}
 
 /// 用来接受用户点击登录按钮以后的响应工作
 /// 参数[event]是鼠标事件....
@@ -241,7 +274,6 @@ void LogIn(MouseEvent event) {
   var request = HttpRequest.getString("http://127.0.0.1:8080/login").then(
       onLogIn);
 }
-
 void onLogIn(responseText) {
   var jsonString = responseText;
   var userinfo = JSON.decode(jsonString);
@@ -258,7 +290,16 @@ void onLogIn(responseText) {
     querySelector("#SignUp_Btn1").text = "登录失败！";
   }
   if (a == 1) {
-    querySelector("#SignUp_Btn1").text = "登录成功！";
+    var router = new Router(useFragment: true);
+    router.root
+      ..addRoute(
+          name: 'loginok',
+          path: '/loginok',
+          enter: LogInOk);
+    querySelector('#LogIn_Btn1').attributes['href'] =
+        router.url('loginok');
+    router.listen();
+/*    querySelector("#SignUp_Btn1").text = "登录成功！";*/
   }
 }
 
@@ -294,8 +335,20 @@ void SignUp(MouseEvent event) {
       request.onReadyStateChange.listen((_) {
         if (request.readyState == HttpRequest.DONE &&
             (request.status == 200 || request.status == 0)) {
-          //data saved
-          print(request.responseText); //output the response from the server
+          if (request.responseText == 'success') {
+            var router2 = new Router(useFragment: true);
+            router2.root
+              ..addRoute(
+                  name: 'signupok',
+                  path: '/signupok',
+                  enter: SignUpOk);
+            querySelector('#SignUp_Btn2').attributes['href'] =
+                router2.url('signupok');
+            router2.listen();
+          }
+          else {
+            querySelector("#SignUp_Btn2").text = "该用户已注册，请重新注册";
+          }
         }
       });
       //post data to the server
