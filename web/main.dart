@@ -76,6 +76,7 @@ void main() {
   router.root
     ..addRoute(name: 'tosignup', path: '/signup', enter: ToSignUp)
     ..addRoute(name:'home',path:'/',enter: (_) => null);
+
   querySelector("#SignUp_Btn1").attributes['href'] = router.url('tosignup');
   router.listen();//显示用户注册界面
   querySelector("#LogIn_Btn1").onClick.listen(LogIn);
@@ -235,6 +236,8 @@ void toCalculate(responseText) {
   }
   querySelector('#Add_Btn').text = number.toString();
 }
+
+///页面跳转 注册-登录-首页
 void ToSignUp(RouteEvent e) {
   document
       .querySelector('#Signup_div')
@@ -268,7 +271,7 @@ void SignUpOk(RouteEvent e) {
 
 /// 用来接受用户点击登录按钮以后的响应工作
 /// 参数[event]是鼠标事件....
-///   //todo 将用户键入的用户名密码与数据库中用户信息表user比较
+ //todo 将用户键入的用户名密码与数据库中用户信息表user比较
 //todo 若对比成功，隐藏登录界面，显示App主页
 void LogIn(MouseEvent event) {
   var request = HttpRequest.getString("http://127.0.0.1:8080/login").then(
@@ -412,6 +415,13 @@ void SignUp(MouseEvent event) {
   /// 接受用户点击开始计算的按钮的响应
   /// 参数[event]是鼠标事件....
   void GetCalNum(MouseEvent event) {
+   /*
+  * 查找某个元素最多的一种食物
+  * @param List<String>
+  * @param num
+  * @return map
+  * */
+
     //todo 从数据库中取出相应数据
     //todo 根据数据库数据与Json文件数据计算热量值并返回
   }

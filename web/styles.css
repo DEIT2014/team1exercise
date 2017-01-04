@@ -78,9 +78,11 @@ textarea{
 }
 .LogIn_div{
     text-align: center;
+    height: 600px;
 }
 .Signup_div{
     text-align: center;
+    height: 600px;
 }
 
 .Food_Result_div{
