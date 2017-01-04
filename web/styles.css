@@ -1,43 +1,94 @@
-.mystyle {
-    background-color: beige;
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family:微软雅黑;
+    font-size: medium;
+}
+
+a{
+    color: black;
+    height: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+}
+a:link {color: darkgray;text-decoration:none;}
+a:hover {color: gainsboro}
+a:active{color:darkslategray;text-decoration:none; }
+a:visited {color:darkgray;text-decoration:none;}
+.p{
     font-family: 微软雅黑;
+    font-size: medium;
+}
+p{
+    font-family: 微软雅黑;
+    font-size: medium;
+}
+textarea{
+    border: solid gray 1px;
+    border-radius: 10px;
+    height: 100px;
 }
 
 
-
-.Food_Result_div{
-    display: none;
-    text-align: center;
-
+.signlog{
+    background-image: url(img/4.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    -moz-background-size:100%,100% ;
+    background-size: cover;
 }
-
-
 .Homepage{
-    text-align: center;
 
+    text-align: center;
+    background-size: cover;
 }
+
 .ToCalculate_div{
-    text-align: center;
-    float: left;
-    padding-right: 10%;
+    font-family: 微软雅黑;
+    -moz-background-size:100%,100% ;
+    background-image: url(img/2.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
 
+    /*text-align: center;*/
+    /*float: left;*/
+    /*padding-right: 10%;*/
+    background-size: cover;
+    height: 600px;
 }
+
 .ToMatch_div{
-    text-align: center;
-    float: left;
-    padding-left: 10%;
-    padding-right: 5%;
-    
+    -moz-background-size:100%,100% ;
+    background-image: url(img/1.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    text-align:left;
+    height: 600px;
+    /*float: left;*/
+    /*padding-left: 10%;*/
+    /*padding-right: 5%;*/
+
 }
 .LogIn_div{
-    display: none;
     text-align: center;
 }
 .Signup_div{
-    display: none;
     text-align: center;
 }
-.plat_Btn{
-    float: right;
-    padding-left: 5%;
+
+.Food_Result_div{
+    display: block;
+    background-image: url(img/4.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    text-align: left;
+    height: 600px;
 }
