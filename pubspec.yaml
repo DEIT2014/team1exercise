@@ -16,6 +16,7 @@ dependencies:
   shelf_route:
   route_hierarchical:
   sqljocky:
+  modern_charts:
 
 
 

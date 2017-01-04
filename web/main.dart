@@ -5,6 +5,8 @@ import 'dart:core';
 import 'dart:convert' show JSON;
 import 'package:route_hierarchical/client.dart';
 import 'dart:async';
+import 'package:modern_charts/modern_charts.dart';
+
 InputElement login_username;//登录界面的用户名变量
 InputElement login_password;//登录界面的密码变量
 
@@ -268,7 +270,60 @@ void SignUp(MouseEvent event) {
 
 */
 
+onDataLoaded_ele(responseText) {
+  var jsonString = responseText;
+  List ele = JSON.decode(jsonString);
+  Map data;
+  for (int i = 0; i < ele.length; i++) {
+    String ele = data[i];
+
+    querySelector('#food_name').text = '食物:';
+
+    querySelector("#VE").text = 'VE:' + data['VE'].toString();
+    querySelector("#pro").text = 'pro:' + data['pro'].toString();
+    querySelector("#Pr").text = 'PR:' + data['Pr'].toString();
+    querySelector("#K").text = 'K:' + data['K'].toString();
+    querySelector("#fat").text = 'fat:' + data['fat'].toString();
+    querySelector("#Na").text = 'Na:' + data['Na'].toString();
+    querySelector("#CHO").text = 'CHO:' + data['CHO'].toString();
+    querySelector("#Ca").text = 'Ca:' + data['Ca'].toString();
+    querySelector("#XW").text = 'XW:' + data['XW'].toString();
+    querySelector("#Mg").text = 'Mg:' + data['Mg'].toString();
+    querySelector("#BC").text = 'BC:' + data['BC'].toString();
+    querySelector("#Fe").text = 'Fe:' + data['Fe'].toString();
+    querySelector("#VA").text = 'VA:' + data['VA'].toString();
+    querySelector("#Zn").text = 'Zn:' + data['Zn'].toString();
+    querySelector("#VC").text = 'VC:' + data['VC'].toString();
 
 
+    var container = querySelector('#piechart');
+    var table = new DataTable(
+        [
+
+          ['维生素E', data['VE']],
+          ['蛋白质', data['pro']],
+          ['胆固醇', data['Ｐｒ']],
+          ['钾', data['K']],
+          ['脂肪', data['fat']],
+          ['碳水化合物', data['']],
+          ['钙', data['Ca']],
+          ['纤维素', data['XW']],
+          ['镁', data['Mg']],
+          ['胡萝卜素', data['BC']],
+          ['铁', data['Fe']],
+          ['维生素E', data['VE']],
+          ['维生素C', data['V']],
+        ]);
+  }
+}
+  void data_chart_show(MouseEvent e) {
+      var request = HttpRequest.getString("http://127.0.0.1:8080/showchart").then(
+          toShowchart);
+    }
+  void toShowchart(responseText) {
+
+    querySelector("#showchart_Btn").text ="营养元素比例";
+    querySelector('#showchart_Btn').onClick.listen(data_chart_show);
+  }
 
 
