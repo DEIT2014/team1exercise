@@ -17,27 +17,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="scaffolded-by" content="https://github.com/google/stagehand">
-    <title>team1exercise</title>
+    <title>我的健康管理</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
 </head>
-<body class="mystyle">
-<div>
-    <div style="display: none">
-        <h1>test_area</h1>
-     <form id="test_area" name="test">
-        测试：<input type="text" id="test_input">
-        <button  id="ok" name="查询">查询</button>
-        测试结果：<input type="text" id="test_result">
-    </form>
-    </div>
+<body >
 
-    <br>
-    <br>
+<div class="signlog">
+        <br>
 
-    <form id=Signup_div class="Signup_div" >
-        <h1>注册页面</h1>
+    <form id=Signup_div class="Signup_div">
+        <br><br>
+        <h1>注  册</h1>
         <p> 姓名：<input type="text" id="SignUp_Username" ></p>
         <p> 密码: <input type="password" id="SignUp_Password"></p>
         <p>确认密码:  <input type="password" id="SignUp_ConfirmPW"></p>
@@ -47,7 +39,7 @@
             花生<input type="checkbox" id="signup_taboo4"value="花生"></p>
         <nav>
             <a  href="" id="SignUp_Btn2" title="SignUp">注册</a>
-            &nbsp;
+            &nbsp;&nbsp;&nbsp;
             <a  href="" id="Cancel_sign_Btn" title="Cancel">取消</a>
         </nav>
 
@@ -56,39 +48,38 @@
 
 
     <form id="LogIn_div" class="LogIn_div" >
-        <h1>登录页面</h1>
+        <br><br>
+        <h1>登  录</h1>
         <p> 姓名：<input type="text" id="LogIn_Username" ></p>
-        <p> 密码:<input type="password" id="LogIn_Password"></p>
+        <p> 密码: <input type="password" id="LogIn_Password"></p>
         <nav>
             <a  href="" id="LogIn_Btn1" title="LogIn">登录</a>
-            <a  href="" id="SignUp_Btn1" title="LogIn">注册</a>
+            &nbsp;&nbsp;&nbsp;
+            <a  href="" id="SignUp_Btn1" title="SignUp">注册</a>
         </nav>
+        <br><br>
     </form>
 
 </div>
 
-<div id="Homepage_div" class="Homepage" >
-    <h1>健康管理 私人订制</h1>
-    <div id="header">
-        <button id="LogIn_Btn2" class="plat_Btn">登录</button>
-        <img id="LogIn_img" src="">
-    </div>
-
-
-    <div id="ToMatch_div" class="ToMatch_div">
-        <h3>搭配模块</h3>
-        <button id="ToMatch_Btn">开始搭配</button>
-        <form>
+<div id="Homepage_div" class="Homepage">
+    <div id="ToMatch_div" class="ToMatch_div" >
+        <br><br><br><br>
+        <div style="text-align: center">
+        <h1>健康管理 私人订制</h1>
+        <a href="/login" id="LogIn_Btn2" title="登录" style="margin-left: 80%" >登录/注册</a>
+        <br><br>
+        <form >
             <label>我的定制目标</label>
             <p>
-                总热量<input type="text" id="Select_Calory">
+                总热量设定：<input type="text" id="Select_Calory">
             <br>
                 <form>
-                忌口食物
+                <h5>忌口食物：</h5>
                 鸡蛋<input type="checkbox" id="T1">
                 花生<input type="checkbox" id="T2">
                 海鲜<input type="checkbox" id="T3">
-
+                坚果<input type="checkbox" id="T4">
                 </form>
                 <form>
                     身体状况
@@ -98,14 +89,19 @@
                     心脏病<input type="checkbox" id="C4">
                 </form>
             </p>
+
+            <br>
+            <a href="/match" id="ToMatch_Btn">开始搭配</a>
         </form>
+        </div>
     </div>
 
 
-    <div id="ToCalculate_div" class="ToCalculate_div">
-        <h3>计算模块</h3>
-        <button id="Calculate_Btn">开始计算</button>
-        <input id="Calculate_Result">卡路里
+    <div id="ToCalculate_div" class="ToCalculate_div" style="display: block">
+  <br><br>
+        <h1>卡路里计算器</h1>
+        <br><br>
+
         <div >
             <p>
                 牛肉<input type="checkbox" id="beef" value="牛肉" >
@@ -124,12 +120,13 @@
                 鸡蛋<input type="checkbox" id="egg" value="鸡蛋">
             </p>
             食物数量<input  type="text" id="Quantity">克
-            <button id="Add_Btn">添加</button>
+            <p></p>
+            <a  id="Add_Btn">添加</a>  <a id="Calculate_Btn">计算</a>
             <br>
             <br>
             <label>已选择</label>
-
-            <textarea id="Chosen_Area"></textarea>
+            <textarea id="Chosen_Area" ></textarea>
+            计算结果：<input id="Calculate_Result">
         </div>
 
 
@@ -137,14 +134,14 @@
     </div>
 
 
-    <form id="Food_Result_div" class="Food_Result_div">
+    <form id="Food_Result_div" class="Food_Result_div"style="display: block;margin-left: 30%">
         <h1>搭配结果页面</h1>
-        <div id="NutriChart_area">
+        <div id="NutriChart_area" >
             <div id="Fan_Chart">
 
             </div>
         </div>
-        <table id="Table_Menu" clas="Table_Menu">
+        <table id="Table_Menu" class="Table_Menu">
             <ul >
                 <li>
 
