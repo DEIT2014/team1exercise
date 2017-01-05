@@ -71,7 +71,7 @@ var localhost = "http://127.0.0.1:8080";
 void main() {
   /// 登录界面
   document
-      .querySelector('#LogIn_div')
+      .querySelector('#Homepage_div')
       .style
       .display = "block";
   document
@@ -79,7 +79,7 @@ void main() {
       .style
       .display = "none";
   document
-      .querySelector('#Homepage_div')
+      .querySelector('#LogIn_div')
       .style
       .display = "none";
   login_username = querySelector('#LogIn_Username'); //输入用户名
@@ -87,8 +87,11 @@ void main() {
   var router = new Router(useFragment: true);
   router.root
     ..addRoute(name: 'tosignup', path: '/signup', enter: ToSignUp)
-    ..addRoute(name:'home',path:'/',enter: (_) => null);
+    ..addRoute(name:'tologin',path:'/login',enter: ToLogIn)
+    ..addRoute(name:'tohome',path:'/',enter: CancelSignUp);
   querySelector("#SignUp_Btn1").attributes['href'] = router.url('tosignup');
+  querySelector("#LogOrSign").attributes['href'] = router.url('tologin');
+  querySelector("#Cancel_sign_Btn").attributes['href'] = router.url('tohome');
   router.listen();//显示用户注册界面
   querySelector("#LogIn_Btn1").onClick.listen(LogIn);
 
@@ -306,6 +309,26 @@ void ToSignUp(RouteEvent e) {
       .display = "block";
   document
       .querySelector('#LogIn_div')
+      .style
+      .display = "none";
+}
+void CancelSignUp(RouteEvent e) {
+  document
+      .querySelector('#Homepage_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Signup_div')
+      .style
+      .display = "none";
+}
+void ToLogIn(RouteEvent e) {
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Homepage_div')
       .style
       .display = "none";
 }
