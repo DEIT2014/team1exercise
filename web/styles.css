@@ -8,7 +8,7 @@ html, body {
 }
 
 a{
-    color: black;
+    color:white;
     height: 10px;
     padding-left: 15px;
     padding-right: 15px;
@@ -16,10 +16,10 @@ a{
     padding-bottom: 5px;
     border-radius: 10px;
 }
-a:link {color: darkgray;text-decoration:none;}
-a:hover {color: gainsboro}
-a:active{color:darkslategray;text-decoration:none; }
-a:visited {color:darkgray;text-decoration:none;}
+a:link {color:white;text-decoration:none;}
+a:hover {color: white}
+a:active{color:white;text-decoration:none; }
+a:visited {color:white;text-decoration:none;}
 .p{
     font-family: 微软雅黑;
     font-size: medium;
@@ -52,7 +52,7 @@ textarea{
 .ToCalculate_div{
     font-family: 微软雅黑;
     -moz-background-size:100%,100% ;
-    background-image: url(img/2.jpg);
+    background-image: url(img/1.jpg);
     background-repeat: no-repeat;
     background-position: center center;
 
@@ -77,13 +77,17 @@ textarea{
 
 }
 .LogIn_div{
+    padding-top:5%;
     text-align: center;
     height: 600px;
 }
 .Signup_div{
+    padding-top:5%;
     text-align: center;
     height: 600px;
+
 }
+
 
 .Food_Result_div{
     display: block;

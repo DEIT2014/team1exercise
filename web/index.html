@@ -48,7 +48,7 @@
 
 
     <form id="LogIn_div" class="LogIn_div" >
-        <br><br>
+        <br><br><br><br>
         <h1>登  录</h1>
         <p> 姓名：<input type="text" id="LogIn_Username" ></p>
         <p> 密码: <input type="password" id="LogIn_Password"></p>
@@ -67,7 +67,7 @@
         <br><br><br><br>
         <div style="text-align: center">
             <h1>健康管理 私人订制</h1>
-            <a href="/login" id="LogOrSign" title="登录" style="margin-left: 80%" >登录/注册</a>
+            <a href="/login" id="LogOrSign" title="登录" style="margin-left: 80% ;color: black " >登录/注册</a>
             <br><br>
             <form >
                 <label>我的定制目标</label>
@@ -91,7 +91,7 @@
                 </p>
 
                 <br>
-                <a href="/match" id="ToMatch_Btn">开始搭配</a>
+                <a href="/match" style="color: black" id="ToMatch_Btn">开始搭配</a>
             </form>
         </div>
     </div>
@@ -120,12 +120,14 @@
                 鸡蛋<input type="checkbox" id="egg" value="鸡蛋">
             </p>
             食物数量<input  type="text" id="Quantity">克
-            <p></p>
-            <a  id="Add_Btn">添加</a>  <a id="Calculate_Btn">计算</a>
-            <br>
+            <p>
+            <a style="color: black" id="Add_Btn">添加</a>  <a style="color: black" id="Calculate_Btn">计算</a>
+            </p>            <br>
             <br>
             <label>已选择</label>
             <textarea id="Chosen_Area" ></textarea>
+            <br><br><br>
+
             计算结果：<input id="Calculate_Result">卡路里
         </div>
 
@@ -134,24 +136,19 @@
     </div>
 
 
-    <form id="Food_Result_div" class="Food_Result_div"style="display: block;margin-left: 30%">
-        <h1>搭配结果页面</h1>
+    <form id="Food_Result_div" class="Food_Result_div"style="display: block">
+        <br><br>
+        <h1 style="text-align:center">搭配页面<h1>
         <div id="NutriChart_area" >
             <div id="Fan_Chart">
 
             </div>
         </div>
         <table id="Table_Menu" class="Table_Menu">
-            <ul >
-                <li>
 
-                </li>
 
-            </ul>
             <ul id="Food_result_1">
-                <li>
 
-                </li>
 
             </ul>
 
