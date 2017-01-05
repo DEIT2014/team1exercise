@@ -374,10 +374,10 @@ void onLogIn(responseText) {
     }
   }
   if (a == 0) {
-    querySelector("#SignUp_Btn1").text = "登录失败！";
+   /* querySelector("#SignUp_Btn1").text = "登录失败！";*/
+    window.alert("登录失败！");
   }
   if (a == 1) {
-    querySelector("#LogIn_Btn1").text = "登录成功！";
     var router = new Router(useFragment: true);
     router.root
       ..addRoute(
@@ -411,7 +411,7 @@ void SignUp(MouseEvent event) {
   if (signup_taboo3.checked) { SignUp_Taboo3 = signup_taboo3.value;}
   if (signup_taboo4.checked) { SignUp_Taboo4 = signup_taboo4.value;}
   if (SignUpUsername == '' || SignUpPassword == '' || SignUpConfirpw == '') {
-    querySelector("#SignUp_Btn2").text = "用户名和密码不能为空！";
+    window.alert("用户名和密码不能为空！");
   }
   //if(SignUpUserName!=null && SignUpPassword!=null && SignUpConPassword!=null)
   else {
@@ -443,7 +443,8 @@ void SignUp(MouseEvent event) {
             router2.listen();
           }
           else {
-            querySelector("#SignUp_Btn2").text = "该用户已注册，请重新注册";
+            window.alert("该用户已注册，请重新注册！");
+
           }
         }
       });
@@ -451,11 +452,12 @@ void SignUp(MouseEvent event) {
       var url = "http://127.0.0.1:8080/signup";
       request.open("POST", url, async: false);
       request.send(jsonData);
-      querySelector("#SignUp_Btn2").text = "注册成功！";
+      window.alert("注册成功！");
+
       //显示注册成功界面
     }
     else {
-      querySelector("#SignUp_Btn2").text = "两次输入密码不同，请重新输入！";
+      window.alert("两次输入密码不同，请重新输入！");
     }
   }
 }
