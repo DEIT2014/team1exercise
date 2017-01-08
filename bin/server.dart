@@ -5,6 +5,7 @@ import 'package:sqljocky/sqljocky.dart';
 import 'dart:core';
 import 'dart:io';
 import 'dart:convert';
+import 'package:jsonx/jsonx.dart';
 
 final _headers={"Access-Control-Allow-Origin":"*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -20,7 +21,7 @@ void main() {
 /*    ..get('/match', ToMatchPage)
 
     ..get('/fanchart', FanChart)
-    ..get('/tablemenu', TableMenu)
+    ..get('/tablemenu', TableMen3u)
 
 
     ;*/
@@ -31,18 +32,18 @@ void main() {
 
 }
 ToCalculate(request) async {
-  var singledata=new Map<String,String>();//存放单个用户数据
-  var alldata=new Map<String,String>();//存放所有用户的数据
+  var singledata=new Map<String,String>();//存放单个食物数据
+  var alldata=new List();//存放所有食物数据
+  var finaldata=new Map<String,String>();
   var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
   var data=await pool.query('select foodname,calory from food');
-  //下面这个语句比较慢，一定要等它
   await data.forEach((row){
-    singledata={'Foodname':'${row.foodname}','Calory':'${row.calory}'};//按照这个格式存放单条数据
-    alldata.addAll(singledata);//将该数据加入数组中
+    singledata={'"Foodname"':'"${row.foodname}"','"Calory"':'"${row.calory}"'};//按照这个格式存放单条数据
+    alldata.add(singledata);//将该数据加入数组中
   });
-  //将用户数据存入数组中
-  var finaldata=JSON.encode(alldata);
-  return (new Response.ok(finaldata ,headers: _headers));
+  //将食物数据存入Map中
+  finaldata={'"Food"':alldata};
+  return (new Response.ok(finaldata.toString() ,headers: _headers));
 }
 //从数据库取出数据（用户登录时）
 ToLogIn(request) async {
@@ -51,12 +52,11 @@ ToLogIn(request) async {
   var finaluserdata=new Map<String,String>();//存放最终的用户数据
   var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
   var data=await pool.query('select username,password,signup_taboo from user');
-  //下面这个语句比较慢，一定要等它
   await data.forEach((row){
     singledata={'"UserName"':'"${row.username}"','"Password"':'"${row.password}"'};//按照这个格式存放单条数据
     userdata.add(singledata);//将该数据加入数组中
   });
-  //将用户数据存入数组中
+  //将用户数据存入Map中
   finaluserdata={'"Userinfo"':userdata};
   return (new Response.ok(finaluserdata.toString(),headers: _headers));
 }
@@ -69,10 +69,10 @@ ToSignUp(request)async{
 
 }
 InsertData(data) async{
-  var  newusername;
-  var  newpassword;
-  var  taboo;
-  Map newuser=JSON.decode(data);
+  var  newusername;//新用户名
+  var  newpassword;//新用户密码
+  var  taboo;//新用户忌口食物
+  Map newuser=JSON.decode(data);//将客户端map解析
   newusername=newuser['Username'];
   newpassword=newuser['Password'];
   taboo=newuser['Taboo'];
@@ -85,23 +85,12 @@ InsertData(data) async{
 
 /*
 
-
-ToHomePage(_){
-  //todo 登录成功后跳转到主页
-  return new Response.ok("Hello_HomePage");
-}
-
-
-
 ToMatchPage(_){
   //todo 将数据写入Json文件并取出数据库数据联合处理数据
   //todo 点击开始搭配后进入开始搭配界面
   return new Response.ok("Hello_MatchPage");
 }
-ToCalculatePage(_){
-  //todo 将数据写入Json文件并取出数据库数据联合处理数据，返回卡路里数值
-  return new Response.ok("Hello_CalculatePage");
-}
+
 FanChart(_){
   //todo 将数据写入Json文件并取出数据库数据，返回扇形图
   return new Response.ok("Hello_FanChart");
