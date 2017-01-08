@@ -21,7 +21,7 @@ void main() {
 /*    ..get('/match', ToMatchPage)
 
     ..get('/fanchart', FanChart)
-    ..get('/tablemenu', TableMenu)
+    ..get('/tablemenu', TableMen3u)
 
 
     ;*/
@@ -85,23 +85,12 @@ InsertData(data) async{
 
 /*
 
-
-ToHomePage(_){
-  //todo 登录成功后跳转到主页
-  return new Response.ok("Hello_HomePage");
-}
-
-
-
 ToMatchPage(_){
   //todo 将数据写入Json文件并取出数据库数据联合处理数据
   //todo 点击开始搭配后进入开始搭配界面
   return new Response.ok("Hello_MatchPage");
 }
-ToCalculatePage(_){
-  //todo 将数据写入Json文件并取出数据库数据联合处理数据，返回卡路里数值
-  return new Response.ok("Hello_CalculatePage");
-}
+
 FanChart(_){
   //todo 将数据写入Json文件并取出数据库数据，返回扇形图
   return new Response.ok("Hello_FanChart");

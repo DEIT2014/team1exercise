@@ -16,13 +16,13 @@ InputElement signup_password; //注册界面的密码变量
 InputElement signup_confirmpw; //注册界面确认密码的变量
 
 CheckboxInputElement select_element; //用户选择所需元素
-CheckboxInputElement signup_taboo1; //用户注册页面选择忌口食物
-
+//用户注册页面选择忌口食物
+CheckboxInputElement signup_taboo1;
 CheckboxInputElement signup_taboo2;
 CheckboxInputElement signup_taboo3;
 CheckboxInputElement signup_taboo4;
-
-CheckboxInputElement beef; //用户开始计算模块选择食物
+//用户开始计算模块食物的复选框
+CheckboxInputElement beef;
 CheckboxInputElement pork;
 CheckboxInputElement chicken;
 CheckboxInputElement mutton;
@@ -39,7 +39,7 @@ TextAreaElement chosen_area; //开始计算版块选择食物区域
 InputElement quantity; //用户选择食物重量
 
 TextAreaElement calculate_result; //开始计算热量结果
-
+//卡路里计算页面用户输入的食物摄入量
 var Beef_Num;
 var Pork_Num;
 var Chicken_Num;
@@ -52,7 +52,7 @@ var Rice_Num;
 var Corn_Num;
 var Bread_Num;
 var Egg_Num;
-
+//记录用户卡路里计算页面勾选的食物种类
 String Beef_Chosen;
 String Pork_Chosen;
 String Chicken_Chosen;
@@ -123,7 +123,8 @@ void main() {
     ..onClick.listen(GetFanChart);*/
 
   ///APP主页开始计算页面
-  beef = querySelector('#beef'); //用户选择食物
+  //用户卡路里计算页面选择的食物
+  beef = querySelector('#beef');
   pork = querySelector('#pork');
   chicken = querySelector('#chicken');
   mutton = querySelector('#mutton');
@@ -142,10 +143,10 @@ void main() {
   querySelector('#Add_Btn').onClick.listen(AddFood); //开始计算返回热量总值
 }
 
-/// 用来接受用户点击开始计算版块的添加按钮的响应工作
+/// 用来接受用户点击添加食物按钮的响应工作
 /// 参数[event]是鼠标事件....
 void AddFood(MouseEvent event) {
-
+//如果食物相应的复选被勾选，将食物信息添加到textarea区域，并对食物名称和摄入量记录
   if (beef.checked) {
     Beef_Chosen = beef.value;
     Beef_Num = quantity.value;
@@ -218,6 +219,7 @@ void AddFood(MouseEvent event) {
     chosen_area.appendText(Egg_Chosen.toString() + Egg_Num.toString() + "克" + "\n");
 
   }
+  //用户勾选食物后复选框自动取消勾选
   beef.checked = false;
   pork.checked = false;
   chicken.checked = false;
@@ -230,7 +232,7 @@ void AddFood(MouseEvent event) {
   corn.checked = false;
   bread.checked = false;
   egg.checked = false;
-  quantity.value = "";
+  quantity.value = "";//食物摄入量的文本框输入一次后自动清空
 }
 
 /// 用来接受用户点击开始计算按钮以后的响应工作
@@ -243,9 +245,10 @@ void GetCalNum(MouseEvent event) {
 void toCalculate(responseText) {
   var jsonString = responseText;
   var fooddata = JSON.decode(jsonString);
-  var food = fooddata["Food"];
-  int number = 0;
+  var food = fooddata["Food"];//将服务器传回来的食物信息进行解码
+  int number = 0;//卡路里初始值为0
   for (var x in food) {
+    //如果勾选食物后，则用相应摄入量乘以服务器返回的匹配热量值
     if (x["Foodname"] ==Beef_Chosen) {
       var beefcal=double.parse(x["Calory"]);
       number +=beefcal*int.parse(Beef_Num);
@@ -296,13 +299,13 @@ void toCalculate(responseText) {
       number +=eggcal * int.parse(Egg_Num);
     }
   }
-  calculate_result.value =number.toString();
+  calculate_result.value =number.toString();//将热量值在文本框显示出来
 }
 
 
 
 
-void ToSignUp(RouteEvent e) {
+void ToSignUp(RouteEvent e) {//注册按钮点击后的route
   document
       .querySelector('#Signup_div')
       .style
@@ -312,7 +315,7 @@ void ToSignUp(RouteEvent e) {
       .style
       .display = "none";
 }
-void CancelSignUp(RouteEvent e) {
+void CancelSignUp(RouteEvent e) {//取消注册按钮点击后的route
   document
       .querySelector('#Homepage_div')
       .style
@@ -322,7 +325,7 @@ void CancelSignUp(RouteEvent e) {
       .style
       .display = "none";
 }
-void ToLogIn(RouteEvent e) {
+void ToLogIn(RouteEvent e) {//登录按钮点击后的route
   document
       .querySelector('#LogIn_div')
       .style
@@ -332,7 +335,7 @@ void ToLogIn(RouteEvent e) {
       .style
       .display = "none";
 }
-void LogInOk(RouteEvent e) {
+void LogInOk(RouteEvent e) {//登录成功后的route
   document
       .querySelector('#Homepage_div')
       .style
@@ -342,7 +345,7 @@ void LogInOk(RouteEvent e) {
       .style
       .display = "none";
 }
-void SignUpOk(RouteEvent e) {
+void SignUpOk(RouteEvent e) {//注册成功后的route
   document
       .querySelector('#LogIn_div')
       .style
@@ -366,6 +369,7 @@ void onLogIn(responseText) {
   var userinfo = JSON.decode(jsonString);
   var userinfolist = userinfo["Userinfo"];
   int a = 0;
+  var username=login_username.value;
   for (var x in userinfolist) {
     if (x["UserName"] == login_username.value) {
       if (x["Password"] == login_password.value) {
@@ -375,37 +379,36 @@ void onLogIn(responseText) {
   }
   if (a == 0) {
    /* querySelector("#SignUp_Btn1").text = "登录失败！";*/
+    login_username.value="";
+    login_password.value="";
     window.alert("登录失败！");
   }
   if (a == 1) {
-    var router = new Router(useFragment: true);
-    router.root
-      ..addRoute(
-          name: 'login',
-          path: '/login',
-          enter: LogInOk);
-    querySelector('#LogIn_Btn1').attributes['href'] =
-        router.url('login');
-    router.listen();
+    document
+        .querySelector('#Homepage_div')
+        .style
+        .display = "block";
+    document
+        .querySelector('#LogIn_div')
+        .style
+        .display = "none";
+    login_username.value="";
+    login_password.value="";
+    querySelector("#LogOrSign").text="用户已登录！";
 /*    querySelector("#SignUp_Btn1").text = "登录成功！";*/
   }
 }
-
-
-/*void tosignup(RouteEvent e) {
-  document.querySelector('#Signup_div').style.display="block";
-  document.querySelector('#LogIn_div').style.display="none";
-
-}*/
 void SignUp(MouseEvent event) {
   //todo 将用户键入的用户名密码加入数据库
   var SignUpUsername = signup_username.value;
   var SignUpPassword = signup_password.value;
   var SignUpConfirpw = signup_confirmpw.value;
+  //忌口食物
   var SignUp_Taboo1;
   var SignUp_Taboo2;
   var SignUp_Taboo3;
   var SignUp_Taboo4;
+  //记录用户勾选的忌口食物
   if (signup_taboo1.checked) { SignUp_Taboo1 = signup_taboo1.value;}
   if (signup_taboo2.checked) { SignUp_Taboo2 = signup_taboo2.value;}
   if (signup_taboo3.checked) { SignUp_Taboo3 = signup_taboo3.value;}
@@ -421,6 +424,7 @@ void SignUp(MouseEvent event) {
         "Password":'${SignUpPassword}',
         "Taboo" : ''
       };
+      //将忌口食物添加到map中
       if (signup_taboo1.checked) { SignUp_Taboo1 = signup_taboo1.value;data.addAll({"Taboo":SignUp_Taboo1});}
       if (signup_taboo2.checked) { SignUp_Taboo2 = signup_taboo2.value;  data.addAll({"Taboo":SignUp_Taboo2});}
       if (signup_taboo3.checked) { SignUp_Taboo3 = signup_taboo3.value; data.addAll({"Taboo":SignUp_Taboo3});}
@@ -431,7 +435,7 @@ void SignUp(MouseEvent event) {
       request.onReadyStateChange.listen((_) {
         if (request.readyState == HttpRequest.DONE &&
             (request.status == 200 || request.status == 0)) {
-          if (request.responseText == 'success') {
+          if (request.responseText == 'success') {//如果服务器返回success，证明信息存入数据库成功
             var router2 = new Router(useFragment: true);
             router2.root
               ..addRoute(
@@ -476,12 +480,6 @@ void SignUp(MouseEvent event) {
   }
 
 
-  ///APP主页中用户选择忌口食物
-  void Checkbox_Taboo2(MouseEvent event) {
-    //todo 勾选复选框
-    // todo 将用户忌口食物赋值给变量做约束条件
-  }
-
   /// 接受用户点击开始搭配按钮的响应
   /// 参数[event]是鼠标事件....
   void GetFoodMenu(MouseEvent event) {
@@ -494,25 +492,6 @@ void SignUp(MouseEvent event) {
     // todo 根据数据库数据与Json文件数据计算所含元素比例并返回扇形图
   }
 
-/// 接受用户点击开始计算按钮的响应
-/// 开始计算中用户选择食物
-  void Checkbox_Food(MouseEvent event) {
-    //todo 选择下拉菜单
-    // todo 将用户选择的食物写入Json文件
-  }
-
-  /// 开始计算中用户选择食物重量
-  void Checkbox_Quantity(MouseEvent event) {
-    //todo 设置数值
-    //todo 将用户设置的食物重量写入Json文件
-  }
-
-  /// 接受用户点击开始计算的按钮的响应
-  /// 参数[event]是鼠标事件....
-  void GetCalNum(MouseEvent event) {
-    //todo 从数据库中取出相应数据
-    //todo 根据数据库数据与Json文件数据计算热量值并返回
-  }
 
 */
 
