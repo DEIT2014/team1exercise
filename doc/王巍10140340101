@@ -1,56 +1,449 @@
-> 关于文档的说明：各位必须使用markdown来进行文档描述，这个文件放到们项目的doc文件夹中，每个人的报告命名为 姓名_学号.md。以下开始正文。
->
 # 产品创意
->你们需要在这里描述你们的产品创意的过程，包括你们的灵感来源，针对什么人群来设计这个产品，你们设计了哪些功能？一开始做的原型的样子（需要附图，要用markdown插入你的图片，关于图片可以在github中使用修改此文档的方式直接上传）
->*此部分每组同学之间可以相同*，不能少于1000字。
+
 ## 创意
-> 在这里，你需要告诉读者你们的项目的灵感来源，需要具体描述怎么就想到这个创意的。
+> 设计这样一个健康管理APP最开始不是我的创意，我起初的想法是为人流量较大的游乐场的不同游戏项目提供关于排队等候实时记录的App，让出游的用户可以随时了解该游乐区域的人流量。这样做，则可以先有选择地去人数少的项目玩，实现了有效分流的作用。后来小伙伴提出了饮食管理的Idea，因为我们的组员都是热爱健身的减肥族，又考虑到这个的实现更能符合我们目前的水平，所以就一拍即合。
+>在具体讨论功能时，我们也是考虑到了目前市面上的“薄荷网”，他提供的就是卡路里计算器，所以这个功能就成为了我们的首选。不过，单一的功能可能不够有技术含量和市场竞争力，所以我们考虑了食谱搭配。根据用户所需要的元素来进行一个每日食谱的推荐。觉得这个想法不错之后，我们就开始细化这个版块的功能，加入了卡路里数量限制，以及用户是否有忌口食物，比如鸡蛋、羊肉等，这部分就要在食谱的设计时排除掉。当然，有了这个考虑，登录注册功能就比较重要了，因为注册用户才可以保存他的相关忌口食物信息，更加便捷，所以就加入了注册和登录版块。
+>总结下来我们的创意概括为：为健身减肥族定制一款专属的App，让饮食不再成为负担与困扰！
+
 ## 需求
->在这里，你们需要尝试说服读者，你的项目的好。
+>你还在为做每天为饮食忧心的健身族吗？你还在做每天为卡路里愁眉的减肥族吗？一款能满足你上述需求的App重磅来袭——健康管理App。
+>现在很多大学生或是企业的白领、金领都在追寻一种更为健康的生活方式。健身作为首选，不仅可以让人们从忙碌的生活中抽身，也可以塑造梦寐以求的完美身材。但是，作为健身减肥族，我们经常遇到的问题就是在健身的同时该搭配什么样的饮食，每天摄取的食物又是多少大卡，是否超标了呢？所以在功能模块设置上，我们设置有：
+ 1. 登录注册：用户登录注册可以记录忌口食物。
+ 2. 食物搭配：通过设定总热量，选择所需元素，再勾选出忌口食物，搭配出最优食谱。这样可以满足您在要求的卡路里范围和所需营养元素的选择下，获得心仪的食谱，再不用为每天要吃什么而忧心。特别地，我们将食谱所含营养元素的比例以图表的形式进行直观呈现。
+ 3. 卡路里计算：选择食物种类及其摄入量，最终计算出卡路里总数。让您轻松知晓每餐所摄入的卡路里，掌握自己身体的即时动态，方便进行调整。
+>总结下来，相对于现在市面上的“薄荷”卡路里计算器，是由食物计算热量；本产品反其道而行之，创设了“根据热量搭配食谱”。这样的设计，满足了用户的双向需求，更具市场价值。
+
 ## 设计的功能列表以及其完成情况
- 功能|是否完成
- --|--
-  功能x|完成度
-  功能x|完成度
 
-## 组员分工列表
-
- 组员|分工|任务完成度
+ 设计的功能|承担该功能的组员|任务完成度
  --|--|--
-  组员x|分工x|完成度
-  组员x|分工x|完成度
-
+  登录|王巍|已完成
+  注册|王巍|已完成
+  卡路里计算|王巍|已完成
+  食谱搭配|池吉 李皓祯|50%完成
+  HTML页面|石睿|已完成
 # 产品技术方案
 > 描述你们的产品创意的技术思路，服务器端如何，客户端如何。不少于500字，不允许粘贴复制网络资源，需要自己描述。
-> **此部分每组同学之间不能相同**，你需要展现自己的理解。
+
+> 技术思路部分我将从功能模块分类进行阐述：
+ 1. 登录模块：客户端收集在登录页面收集的用户名、密码，以map的形式传到服务器，服务器从数据库的user表取出数据与通过JSON解析的map进行比较，匹配则向客户端传回1，不匹配则传回0。客户端进行解析，通过判断1：登录成功0：登录失败。
+ 2. 注册模块：用户在注册界面输入用户名、2次密码以及忌口食物，客户端收集数据，并将密码与确认密码进行比较，如果两者相同则将数据传到服务器上，服务器再与数据库连接将信息传入数据库的user表。
+ 3. 卡路里计算模块：用户在Html上勾选食物及摄入量放入textarea容器，客户端进行收集，并向服务器发送请求，从数据库中取出food表的数据，并传回客户端进行热量值计算。
+ 4. 食谱搭配模块：用户在页面上设定热量范围，并勾选所需元素，客户端进行数据收集，并向服务器发送请求，在服务器上进行匹配最优函数的操作，最终返回客户端一个食谱以及元素含量的map。客户端进行解析并呈现食谱，同时根据元素对应的值显示饼状图（dart相关数据包）。
+
 # 我在小组中的分工
->你在小组中主要负责那部分工作，如果小组其他成员相比，你感觉你完成的怎么样？你觉得你组那个组员完成的最好，工作量最大？
+>我在小组中负责的是登录、注册、以及卡路里计算（包括数据库的构建）三个模块。这三个模块涉及到了数据库、服务器以及客户端的反复导通与取值，并且在卡路里计算模块实现了数值的运算。
+>有点不太谦虚的说，我认为在小组中自己的任务量是最大的，也是完成的最好的。在最后一次课的成功展示中小组内也只有这三个模块得以实现。不过，整个过程还是很艰辛的，中间也多次得到了老师的帮助。最后三个模块都能实现也是很有成就感的，感谢老师的帮助，让我学会如何从一个陌生的语言起步，一点点找到编程的感觉。
+
 # 我的编程实践活动
 ## 我的代码
->采用markdown 中代码标记来粘贴你完成的那些代码。  比如：
-
+>客户端代码
 ```dart
 ///主函数
-main(){
-var element;
+void main（）{
+///主页面跳转关系
+document//主页显示
+      .querySelector('#Homepage_div')
+      .style
+      .display = "block";
+document//注册隐藏
+      .querySelector('#Signup_div')
+      .style
+      .display = "none";
+document//登录隐藏
+      .querySelector('#LogIn_div')
+      .style
+      .display = "none";
+var router = new Router(useFragment: true);
+ router.root
+ ..addRoute(name: 'tosignup', path: '/signup', enter: ToSignUp)//开始注册
+ ..addRoute(name:'tologin',path:'/login',enter: ToLogIn)//开始登录
+ ..addRoute(name:'tohome',path:'/',enter: CancelSignUp);//取消注册
+querySelector("#SignUp_Btn1").attributes['href'] = router.url('tosignup')
+querySelector("#LogOrSign").attributes['href'] = router.url('tologin');
+querySelector("#Cancel_sign_Btn").attributes['href'] = router.url('tohome');
+  router.listen();
+///登录界面
+login_username
+=querySelector('#LogIn_Username'); //输入用户名
+login_password = querySelector('#LogIn_Password'); //输入用户密码
+querySelector("#LogIn_Btn1").onClick.listen(LogIn);//用户登录按钮鼠标事件
+/// 注册界面
+signup_username = querySelector('#SignUp_Username'); //输入用户名
+signup_password = querySelector('#SignUp_Password'); //输入密码
+signup_confirmpw = querySelector('#SignUp_ConfirmPW'); //确认密码
+signup_taboo1 = querySelector('#signup_taboo1'); //选择忌口食物
+signup_taboo2 = querySelector('#signup_taboo2');
+signup_taboo3 = querySelector('#signup_taboo3');
+signup_taboo4 = querySelector('#signup_taboo4');
+querySelector("#SignUp_Btn2").onClick.listen(SignUp); //用户注册按钮鼠标事件
+///卡路里计算页面
+//用户选择食物，牛肉、猪肉、鸡肉等等，以下只给出两条
+beef = querySelector('#beef');
+pork = querySelector('#pork');
+chosen_area = querySelector('#Chosen_Area');//用户已选食物区域
+calculate_result = querySelector('#Calculate_Result');//卡路里计算结果
+quantity = querySelector('#Quantity');//食物摄入量
+querySelector('#Calculate_Btn').onClick.listen(GetCalNum); //开始计算按钮鼠标事件
+querySelector('#Add_Btn').onClick.listen(AddFood); //添加按钮鼠标事件
 }
-///什么按钮的事件函数
-void click(event e){
+///添加食物按钮的事件函数
+void AddFood(MouseEvent event) {
+//如果食物的复选被勾选，将食物信息添加到textarea区域，以下只给出两个为例
+  if (beef.checked) {
+    Beef_Chosen = beef.value;
+    Beef_Num = quantity.value;
+    chosen_area.appendText(Beef_Chosen.toString() + Beef_Num.toString() + "克" + "\n");
+  }
+  if (pork.checked) {
+    Pork_Chosen = pork.value;
+    Pork_Num = quantity.value;
+    chosen_area.appendText(Pork_Chosen.toString() + Pork_Num.toString() + "克" + "\n");
+  }
+//用户添加食物后复选框自动取消勾选，以下只给出两个为例
+  beef.checked = false;
+  pork.checked = false;
+//用户添加食物后食物摄入量的文本框清空
+  quantity.value = "";
 }
-
+///开始计算按钮的事件函数
+void GetCalNum(MouseEvent event) {
+  var request = HttpRequest.getString("http://127.0.0.1:8080/calculate").then(
+      toCalculate);
+}
+void toCalculate(responseText) {
+  var jsonString = responseText;
+  var fooddata = JSON.decode(jsonString);
+  var food = fooddata["Food"];//将服务器传回来的食物信息进行解码
+  int number = 0;//卡路里初始值为0
+  for (var x in food) {
+//将勾选的食物与服务器传回来的数据匹配，并根据对应的卡路里和摄入量开始计算，以下以两种食物为例
+    if (x["Foodname"] ==Beef_Chosen) {
+      var beefcal=double.parse(x["Calory"]);
+      number +=beefcal*int.parse(Beef_Num);
+    }
+    if (x['Foodname'] == Pork_Chosen) {
+      var porkcal=double.parse(x["Calory"]);
+      number +=porkcal * int.parse(Pork_Num);
+    }
+  }
+//将热量值在文本框显示出来
+  calculate_result.value =number.toString();
+}
+///登录按钮的事件函数
+void LogIn(MouseEvent event) {
+  var request = HttpRequest.getString("http://127.0.0.1:8080/login").then(
+      onLogIn);
+}
+void onLogIn(responseText) {
+  var jsonString = responseText;
+  var userinfo = JSON.decode(jsonString);
+  var userinfolist = userinfo["Userinfo"];
+  int a = 0;
+  for (var x in userinfolist) {
+    if (x["UserName"] == login_username.value) {
+      if (x["Password"] == login_password.value) {
+        a = 1;
+      }
+    }
+  }
+  if (a == 0) {
+   /* querySelector("#SignUp_Btn1").text = "登录失败！";*/
+    login_username.value="";
+    login_password.value="";
+    window.alert("登录失败！");
+  }
+  if (a == 1) {
+    document
+        .querySelector('#Homepage_div')
+        .style
+        .display = "block";
+    document
+        .querySelector('#LogIn_div')
+        .style
+        .display = "none";
+    login_username.value="";
+    login_password.value="";
+    querySelector("#LogOrSign").text="用户已登录！";
+    }
+  }
+///注册按钮的事件函数
+void SignUp(MouseEvent event) {
+  //todo 将用户键入的用户名密码加入数据库
+  var SignUpUsername = signup_username.value;
+  var SignUpPassword = signup_password.value;
+  var SignUpConfirpw = signup_confirmpw.value;
+  var SignUp_Taboo1;
+  var SignUp_Taboo2;
+  var SignUp_Taboo3;
+  var SignUp_Taboo4;
+//记录用户勾选的忌口食物
+  if (signup_taboo1.checked) { SignUp_Taboo1 = signup_taboo1.value;}
+  if (signup_taboo2.checked) { SignUp_Taboo2 = signup_taboo2.value;}
+  if (signup_taboo3.checked) { SignUp_Taboo3 = signup_taboo3.value;}
+  if (signup_taboo4.checked) { SignUp_Taboo4 = signup_taboo4.value;}
+  if (SignUpUsername == '' || SignUpPassword == '' || SignUpConfirpw == '') {
+    window.alert("用户名和密码不能为空！");
+  }
+  //if(SignUpUserName!=null && SignUpPassword!=null && SignUpConPassword!=null)
+  else {
+    if (signup_password.value == signup_confirmpw.value) {
+      Map data = {
+        "Username":'${SignUpUsername}',
+        "Password":'${SignUpPassword}',
+        "Taboo" : ''
+      };
+if (signup_taboo1.checked) { SignUp_Taboo1 = signup_taboo1.value;data.addAll({"Taboo":SignUp_Taboo1});}//将忌口食物添加到map中
+      if (signup_taboo2.checked) { SignUp_Taboo2 = signup_taboo2.value;  data.addAll({"Taboo":SignUp_Taboo2});}
+      if (signup_taboo3.checked) { SignUp_Taboo3 = signup_taboo3.value; data.addAll({"Taboo":SignUp_Taboo3});}
+      if (signup_taboo4.checked) { SignUp_Taboo4 = signup_taboo4.value; data.addAll({"Taboo":SignUp_Taboo4});}
+      var jsonData = JSON.encode(data);
+      HttpRequest request = new HttpRequest();
+      //add a event handler that is called when the request is finished
+      request.onReadyStateChange.listen((_) {
+        if (request.readyState == HttpRequest.DONE &&
+            (request.status == 200 || request.status == 0)) {
+        if (request.responseText == 'success') {//如果服务器返回success，证明信息存入数据库成功
+            var router2 = new Router(useFragment: true);
+            router2.root
+              ..addRoute(
+                  name: 'signup',
+                  path: '/signup',
+                  enter: SignUpOk);
+            querySelector('#SignUp_Btn2').attributes['href'] =
+                router2.url('signup');
+            router2.listen();
+          }
+          else {
+            window.alert("该用户已注册，请重新注册！");
+          }
+        }
+      });
+      //post data to the server
+      var url = "http://127.0.0.1:8080/signup";
+      request.open("POST", url, async: false);
+      request.send(jsonData);
+      window.alert("注册成功！");//窗口弹出"注册成功"
+      //显示注册成功界面
+    }
+    else {
+      window.alert("两次输入密码不同，请重新输入！");
+    }
+  }
+}
+///route页面跳转
+//注册按钮点击后的route
+void ToSignUp(RouteEvent e) {
+  document
+      .querySelector('#Signup_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "none";
+}
+//取消注册按钮点击后的route
+void CancelSignUp(RouteEvent e) {
+  document
+      .querySelector('#Homepage_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Signup_div')
+      .style
+      .display = "none";
+}
+//登录按钮点击后的route
+void ToLogIn(RouteEvent e) {
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Homepage_div')
+      .style
+      .display = "none";
+}
+//登录成功后的route
+void LogInOk(RouteEvent e) {
+  document
+      .querySelector('#Homepage_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "none";
+}
+//注册成功后的route
+void SignUpOk(RouteEvent e) {
+  document
+      .querySelector('#LogIn_div')
+      .style
+      .display = "block";
+  document
+      .querySelector('#Signup_div')
+      .style
+      .display = "none";
+}
 ```
+>服务器代码
+```dart
+///主函数
+void main() {
+  var myRouter = router()
+    ..get('/login', ToLogIn)
+    ..post('/signup', ToSignUp)
+    ..get('/calculate',ToCalculate);
+  io.serve(myRouter.handler, '127.0.0.1', 8080);
+}
+///开始计算按钮服务器响应
+ToCalculate(request) async {
+  var singledata=new Map<String,String>();//存放单个食物数据
+  var alldata=new List();//存放所有食物数据
+  var finaldata=new Map<String,String>();
+  var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
+  var data=await pool.query('select foodname,calory from food');
+  await data.forEach((row){
+    singledata={'"Foodname"':'"${row.foodname}"','"Calory"':'"${row.calory}"'};//按照这个格式存放单条数据
+    alldata.add(singledata);//将该数据加入数组中
+  });
+  //将食物数据存入Map中
+  finaldata={'"Food"':alldata};
+  return (new Response.ok(finaldata.toString() ,headers: _headers));
+}
+///登录按钮服务器响应
+ToLogIn(request) async {
+  var singledata=new Map<String,String>();//存放单个用户数据
+  var userdata=new List();//存放所有用户的数据
+  var finaluserdata=new Map<String,String>();//存放最终的用户数据
+  var pool=new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);
+  var data=await pool.query('select username,password,signup_taboo from user');
+  await data.forEach((row){
+    singledata={'"UserName"':'"${row.username}"','"Password"':'"${row.password}"'};//按照这个格式存放单条数据
+    userdata.add(singledata);//将该数据加入数组中
+  });
+  //将用户数据存入Map中
+  finaluserdata={'"Userinfo"':userdata};
+  return (new Response.ok(finaluserdata.toString(),headers: _headers));
+}
+///注册按钮服务器响应
+ToSignUp(request)async{
+  //注册数据写入数据库
+  request.readAsString().then(InsertData);
+  return (new Response.ok('success',headers: _headers));
 
+}
+InsertData(data) async{
+  var  newusername;//新用户名
+  var  newpassword;//新用户密码
+  var  taboo;//新用户忌口食物
+  Map newuser=JSON.decode(data);//将客户端map解析
+  newusername=newuser['Username'];
+  newpassword=newuser['Password'];
+  taboo=newuser['Taboo'];
+  //todo 将数据存入数据库
+  var pool = new ConnectionPool(host: "localhost", port: 3306, user:'root', password:'wqwtsr', db: 'database', max: 5);//与数据库相连
+  var query=await pool.prepare('insert into user (username,password,signup_taboo) values (?, ?,?)');
+  var result=await query.execute([newusername,newpassword,taboo]);
+
+}
+```
 ## 我的活动量化
 
->到诸如 https://github.com/DEIT2014/teamXexercise/graphs/contributors 这样的地址中（替换teamXexercise为你自己所在小组）查看你的活动状态。到诸如https://github.com/DEIT2014/team2exercise/issues 中查询你的issure状态。查询后作类似如下描述，即你做了多少次commit，修改增加了多少，修改删除了多少，做了多少次issues
->  **姓名/学号/29 commits / 1,954 ++ / 669 --**/10 issues/
-
+>  **王巍/10140340101/30 commits / 2,410 ++ / 1192 --/3 issues/**
 
 ## 我的issue活动
->在这里列出你参与的issue活动，包括你发起的问题，你回答的问题，你可以使用
-> **此部分各组员不能相同**
->你还需要到你自己的github
-# 这个项目的自评
-> 请你对自己的工作进行自评
-> 如果再给你10**整天**时间，你有信心做完自己的部分吗？
->
+ 1. 关于list和array
+在github网站中没有查到关于数组的信息，语言中指出list即替代array的用法。不知道在dart语言中数组是否与列表等同。 @meflyup
+ 2. 列表初始化参数定义与否
+ 语句中list定义时给出了参数n，并将n带入循环进行运算；
+```
+ List<int> listA = new List(n);
+ final n=21;
+ main() {
+   for(var i=0;i<n;i++) {
+     listA[i]=0;
+   }
+```
+ 但若不定义n，直接用21（班级人数）代替（如下），在listA[i]=0语句就会出现错误。这是为什么呢？
+```
+ List<int> listA = new List();
+ main() {
+   for(var i=0;i<21;i++) {
+     listA[i]=0;
+   }
+```
+ 我尝试了两个新的方式，个人认为出错原因是因为没有定义参数，所以listA[i]就不能够使用。
+ 若没有初始化参数，则可以用add来实现：
+```
+ List<int> listA = new List();
+ main() {
+ for(var i=0;i<21;i++) {
+ listA.add(0);
+ }
+```
+ 或者直接使用filled语句实现：
+```
+ var listA = new List.filled(20,0);
+```
+ 3. JSON对象的命名及数据的调用
+ 对象数组：
+```
+ var employees = [
+ { "firstName":"Bill" , "lastName":"Gates" },
+ { "firstName":"George" , "lastName":"Bush" },
+ { "firstName":"Thomas" , "lastName": "Carter" }
+ ];
+```
+ 这是我在网上查到的json对象数组的命名，但是在dart里有错误。
+```
+ {
+ "employees": [
+ { "firstName":"John" , "lastName":"Doe" },
+ { "firstName":"Anna" , "lastName":"Smith" },
+ { "firstName":"Peter" , "lastName":"Jones" }
+ ]
+ }
+```
+ 还有，这是一个对象的数组里包含多种对象。
+ 以上两种方法都试过，但是如果想要拿出来一个数据的话是要怎么做呢？不知道如何在web里面调用。
+ 4. Future&async&await
+ 经过尝试，我总结了一下几点：
+ 1. 主函数有await，后面不管有没有future、async和await还是会等待。主函数没有等待，会异步执行，但若是后面没有定义好async则会顺序执行；
+ 2. 当stu3异步，stu6等待时，必须3运行完才可以执行;当stu3和stu6都异步时，都是3先于6执行；
+ 3. Future在一些情况可有可无，但async和await必须同步写。
+```
+ int aNum =  stu3_recharge();这样的书写的报错：（因为future不能是int）
+ stu1 done
+ stu2 done
+ Unhandled exception:
+ type '_Future' is not a subtype of type 'int' of 'aNum' where
+   _Future is from dart:async
+   int is from dart:core
+```
+ 有await没有async时的报错：（await后面的分号问题）
+```
+stu1 done
+stu2 done
+'file:///E:/dart/dartgate-codes/bin/async-sample/sync_with_async_stu.dart': error: line 37 pos 19: semicolon expected
+  int aNum = await stu3_recharge();
+```
+ 5. 登录error
+ 老师：
+ 我的登录部分一直不成功，反复看了很久也不清楚到底问题在哪里。今天上课进行调试发现request的部分很奇怪，执行到这里就有问题，麻烦您帮我看一下。
+ 我已经在team1exercise中提交了一个名为error的分支
+ 数据库部分：
+ 我建了一个数据库叫database，里面有user表，表中为username，password两个属性。
+ 5. 计算热量问题
+ 冯老师：
+ 我新建了一个new-error的分支，把代码传上去了。具体出错的地方是客户端GetCalNum的函数，和服务器的ToCalculate。麻烦您帮我看一下是什么错误，谢谢！
+
+# 我的自评
+
+> 首先，很感谢老师在本项目对我的帮助！因为之前没有选过类似Java的课，学过的C++跟这个全新的语言实在有些吃力。一开始并不知道用这个软件和网站，对于写代码更是有点小慌张。在老师的帮助下，我开始学会查文档，一点点去完成每一个函数，直至导通数据库、服务器和客户端。为了实现这三个版块，因为工作量还是蛮大的，真的费了很多功夫，需要去不断地调试。所以，我对于自己的努力还是很肯定的，能坚持下去并且实现了这三个功能，真的很有成就感。对于这个项目，我想如果我们可以的话还是像老师说的那样，继续做下去！
+
+如果用**一整天8小时**时间计算，你有信心再用多少天完成你未目前完成的功能？
+
+> 这个问题，因为我现在已经实现了我负责的三个功能，所以不太好回答。对于我们组的开始搭配那个版块，加上最终作品的完善，我觉得如果组员一起做的话，大概一周的时间可以完成吧。
